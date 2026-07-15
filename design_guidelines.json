@@ -1,0 +1,93 @@
+{
+  "theme": "Dark Mode Default with High-Contrast (Modern & Bold aesthetic).",
+  "typography": {
+    "headings_font": "Clash Display",
+    "body_font": "Manrope",
+    "weights": {
+      "headings": "font-bold, font-black",
+      "body": "font-light, font-medium"
+    },
+    "guidelines": "Do NOT use Inter, Roboto, or standard Sans for headings. Headings MUST use tight letter spacing (tracking-tight or tracking-tighter). Overlines/Labels MUST be uppercase with wide spacing (tracking-[0.2em]). Max heading size text-6xl for Hero."
+  },
+  "colors": {
+    "archetype": "SWISS & HIGH-CONTRAST with Luxury Twist",
+    "background_dark": "#0A0A0A",
+    "foreground_dark": "#FAFAFA",
+    "surface": "#141414",
+    "primary_accent": "#FF4500",
+    "primary_accent_hover": "#FF6A33",
+    "border": "#27272A",
+    "guidelines": "High contrast is critical. No generic full-screen gradients. Color exists to guide action. The primary accent (#FF4500) should be reserved for high-priority CTA like 'Book Now' or 'Search'. Tint neutral greys slightly."
+  },
+  "visual_enhancers": {
+    "surfaces": "Use Glassmorphism (backdrop-blur-xl bg-black/60 border border-white/10) for sticky headers and floating navs. Use Flat Solid backgrounds with sharp 1px borders for Dashboard and Booking cards.",
+    "effects": "Subtle grain textures, layered shadows. Dark mode elements should have a 1px delicate inner stroke (border-white/10)."
+  },
+  "grids_layouts": {
+    "marketing_pages": "Use the Bento 'Tetris' Grid (grid-cols-1 md:grid-cols-12 with wide gap-8 to gap-12). Prioritize asymmetry. Do not perfectly fill 100% of the grid.",
+    "dashboard_pages": "Use High Density Grid for 'My Bookings' page (grid-cols-1 md:grid-cols-3 or 4, tight gap-4).",
+    "spacing": "Generous Spacing Philosophy. Use p-8, p-12, p-16. Containers with borders MUST have internal padding to prevent text collision."
+  },
+  "motion": {
+    "interactions": "Hover states must lighten hue of active state. Smooth transitions for specific properties only (transition: transform 0.2s ease, opacity 0.2s ease). Do NOT use transition: all.",
+    "scroll": "Use Framer Motion for staggered entrance animations of hotel/car lists and subtle scroll-triggered effects."
+  },
+  "accessibility": {
+    "contrast": "Minimum 4.5:1 contrast for normal text. Explicitly set hover text colors (e.g., hover:bg-white hover:text-black).",
+    "testing": "All interactive and key informational elements MUST include a data-testid attribute in kebab-case."
+  },
+  "components": {
+    "strategy": "Marketing structures must be pure HTML + Tailwind CSS to achieve asymmetry. Form inputs, calendars, dialogs, and select dropdowns MUST use highly-customized Shadcn UI components.",
+    "notable_customizations": "Strip Shadcn's default Vercel-look. Override standard radii (use crisp edges or subtle 8px radius) and apply brand spacing."
+  },
+  "media": {
+    "image_urls": {
+      "hero_backgrounds": [
+        {
+          "url": "https://images.pexels.com/photos/7974839/pexels-photo-7974839.jpeg",
+          "description": "Stunning poolside view of a luxury hotel at night - primary landing hero"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1757439402375-2f2a4ab0dc75",
+          "description": "Luxury pool and patio area at night - secondary section background"
+        }
+      ],
+      "hotel_rooms": [
+        {
+          "url": "https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4",
+          "description": "Modern hotel room bed - inventory image"
+        },
+        {
+          "url": "https://images.pexels.com/photos/13813465/pexels-photo-13813465.jpeg",
+          "description": "Elegant luxury bedroom - inventory image"
+        }
+      ],
+      "cars": [
+        {
+          "url": "https://images.unsplash.com/photo-1774838231308-72e6792f7ab8",
+          "description": "Red sports car driving on winding mountain road - car rental image"
+        },
+        {
+          "url": "https://images.pexels.com/photos/16189183/pexels-photo-16189183.jpeg",
+          "description": "Black Lamborghini Urus on mountain backdrop - car rental image"
+        }
+      ],
+      "places": [
+        {
+          "url": "https://images.pexels.com/photos/34124122/pexels-photo-34124122.jpeg",
+          "description": "Hikers on picturesque mountain trail - top attraction image"
+        },
+        {
+          "url": "https://images.pexels.com/photos/9629654/pexels-photo-9629654.jpeg",
+          "description": "Hikers in foggy mountain landscape - nearby place image"
+        }
+      ]
+    },
+    "guidelines": "Hero images MUST use an overlay like bg-black/40 or bg-gradient-to-r from-black/80 via-black/40 to-transparent to ensure text readability. Mobile height limit for images is 80vh."
+  },
+  "3d_libraries": {
+    "recommendation": "Use framer-motion for UI transitions. For complex immersive destination visuals, optionally use react-spring-parallax for a layered scrolling hero, but keep it lightweight to not hinder the booking flow."
+  },
+  "instructions_to_main_agent": "Setup Tailwind with Clash Display and Manrope. Use deep blacks and electric orange. Run `yarn add @phosphor-icons/react framer-motion lucide-react sonner date-fns`. Build the landing page using raw HTML/Tailwind grids for the Bento-style layout, and use customized Shadcn UI components for the Search Widget (Date Picker, Select for Guests). Add Google Login and Razorpay checkout functionality as requested. ALWAYS use the provided image URLs.",
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": "Do not converge to generic outputs. Create depth through layered design elements with z-index hierarchy. Use glass-morphism effects with backdrop filters. You MUST NOT apply universal transition (all). You MUST NOT center align the app container. Always use modern pill-shaped or sharp button styles. Never use AI emoji characters for icons. Every interaction needs micro-animations. NEVER use completely transparent backgrounds under text. DO NOT use generic Vercel-look layouts. Inject personality."
+}
