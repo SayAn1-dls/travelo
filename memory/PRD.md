@@ -20,6 +20,9 @@
 - Auth: session_token cookie (httpOnly, secure, sameSite=none) + Bearer fallback
 
 ## Implemented (2026-02)
+### Iteration 4
+- Photo Reactions: like ❤️ + bookmark 🔖 on every traveller photo (POST /api/photos/{id}/reactions), counts shown on tile + lightbox with optimistic updates, GET /api/photos/bookmarks lists a user's saved shots, feed re-sorted by (likes DESC, bookmarks DESC, created_at DESC) so top shots rise to the top with a 'Top shot' badge
+
 ### Iteration 3
 - Wishlist Hearts on every hotel card + dedicated /wishlist page (WishlistContext)
 - Traveller Photo Uploads on hotel detail (POST /api/hotels/{id}/photos multipart with paid-booking gate; storage uses Emergent Object Storage w/ local filesystem fallback under /app/backend/uploads/; /api/files/{path} serves bytes)

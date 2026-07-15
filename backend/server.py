@@ -938,11 +938,7 @@ async def list_hotel_photos(hotel_id: str, user: Optional[dict] = Depends(get_cu
         r["my_liked"] = "like" in my.get(pid, set())
         r["my_bookmarked"] = "bookmark" in my.get(pid, set())
 
-    # best shots rise to the top: likes desc, then created_at desc
-    rows.sort(key=lambda p: (-p["like_count"], -p["bookmark_count"], p["created_at"]), reverse=False)
-    # sort was ascending on created_at (older first) — flip that
-    rows.sort(key=lambda p: (-p["like_count"], -p["bookmark_count"], p["created_at"] if isinstance(p["created_at"], str) else ""), reverse=False)
-    # simpler and correct: sort desc by (like_count, bookmark_count, created_at)
+    # best shots rise to the top: likes desc, then bookmarks desc, then newest first
     rows.sort(key=lambda p: (p["like_count"], p["bookmark_count"], p["created_at"]), reverse=True)
     return rows
 
