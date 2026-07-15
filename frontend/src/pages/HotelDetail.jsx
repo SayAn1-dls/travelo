@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { format, differenceInDays, addDays } from "date-fns";
-import { Star, MapPin, Wifi, Sparkles, CalendarIcon, Users, ArrowRight } from "lucide-react";
+import { Star, MapPin, Sparkles, CalendarIcon, Users, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
@@ -9,23 +9,34 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "sonner";
 import api from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
+import ReviewsSection from "@/components/ReviewsSection";
+import BundleUpsell from "@/components/BundleUpsell";
 
 export default function HotelDetail() {
   const { id } = useParams();
   const [hotel, setHotel] = useState(null);
+  const [reviews, setReviews] = useState(null);
   const [dates, setDates] = useState({ from: new Date(), to: addDays(new Date(), 3) });
   const [guests, setGuests] = useState("2");
+  const [bundleCar, setBundleCar] = useState(null);
   const navigate = useNavigate();
   const { user } = useAuth();
 
   useEffect(() => {
     api.get(`/hotels/${id}`).then((r) => setHotel(r.data)).catch(() => toast.error("Hotel not found"));
+    api.get(`/hotels/${id}/reviews`).then((r) => setReviews(r.data));
   }, [id]);
+
+  const nights = useMemo(
+    () => (hotel ? Math.max(1, differenceInDays(dates.to || addDays(dates.from, 1), dates.from)) : 0),
+    [dates, hotel]
+  );
 
   if (!hotel) return <div className="pt-32 text-center text-white/60">Loading…</div>;
 
-  const nights = Math.max(1, differenceInDays(dates.to || addDays(dates.from, 1), dates.from));
-  const subtotal = hotel.price * nights;
+  const hotelSubtotal = hotel.price * nights;
+  const carSubtotal = bundleCar ? bundleCar.price * nights : 0;
+  const subtotal = hotelSubtotal + carSubtotal;
   const taxes = Math.round(subtotal * 0.12);
   const total = subtotal + taxes;
 
@@ -37,12 +48,41 @@ export default function HotelDetail() {
       window.location.href = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirect)}`;
       return;
     }
+
+    const start = format(dates.from, "yyyy-MM-dd");
+    const end = format(dates.to || addDays(dates.from, 1), "yyyy-MM-dd");
+
+    if (bundleCar) {
+      const bundle = {
+        items: [
+          { item_type: "hotel", item_id: hotel.id, quantity: nights },
+          { item_type: "car", item_id: bundleCar.id, quantity: nights },
+        ],
+        destination: hotel.destination,
+        start_date: start,
+        end_date: end,
+        guests: Number(guests),
+        total_amount: total,
+      };
+      navigate("/checkout", {
+        state: {
+          bundle,
+          nights,
+          items: [
+            { ...hotel, item_type: "hotel", subtotal: hotelSubtotal + Math.round(hotelSubtotal * 0.12) },
+            { ...bundleCar, item_type: "car", subtotal: carSubtotal + Math.round(carSubtotal * 0.12) },
+          ],
+        },
+      });
+      return;
+    }
+
     const payload = {
       item_type: "hotel",
       item_id: hotel.id,
       destination: hotel.destination,
-      start_date: format(dates.from, "yyyy-MM-dd"),
-      end_date: format(dates.to || addDays(dates.from, 1), "yyyy-MM-dd"),
+      start_date: start,
+      end_date: end,
       guests: Number(guests),
       total_amount: total,
     };
@@ -84,6 +124,9 @@ export default function HotelDetail() {
               </div>
             </div>
           </div>
+
+          {/* Reviews */}
+          <ReviewsSection data={reviews} />
         </div>
 
         {/* Booking widget */}
@@ -129,8 +172,19 @@ export default function HotelDetail() {
             </Select>
           </div>
 
+          {/* Bundle add-a-car */}
+          <BundleUpsell
+            destination={hotel.destination}
+            days={nights}
+            selectedCar={bundleCar}
+            onChange={setBundleCar}
+          />
+
           <div className="mt-6 space-y-2 text-sm border-t border-white/10 pt-4">
-            <div className="flex justify-between text-white/70"><span>₹{hotel.price.toLocaleString("en-IN")} × {nights} nights</span><span>₹{subtotal.toLocaleString("en-IN")}</span></div>
+            <div className="flex justify-between text-white/70"><span>Hotel · ₹{hotel.price.toLocaleString("en-IN")} × {nights} nights</span><span>₹{hotelSubtotal.toLocaleString("en-IN")}</span></div>
+            {bundleCar && (
+              <div className="flex justify-between text-white/70"><span>Car · {bundleCar.name} × {nights}d</span><span>₹{carSubtotal.toLocaleString("en-IN")}</span></div>
+            )}
             <div className="flex justify-between text-white/70"><span>Taxes & fees</span><span>₹{taxes.toLocaleString("en-IN")}</span></div>
             <div className="flex justify-between font-display font-bold text-lg pt-3 border-t border-white/10 mt-3">
               <span>Total</span><span data-testid="hotel-total">₹{total.toLocaleString("en-IN")}</span>
@@ -142,7 +196,7 @@ export default function HotelDetail() {
             data-testid="hotel-book-btn"
             className="w-full mt-6 bg-[#FF4500] hover:bg-[#FF6A33] text-black font-semibold h-12 rounded-full brand-glow"
           >
-            Reserve <ArrowRight className="w-4 h-4 ml-2" />
+            {bundleCar ? "Reserve trip bundle" : "Reserve"} <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
           <div className="text-[11px] text-white/40 text-center mt-3">You won&apos;t be charged yet. Secure Razorpay checkout on next step.</div>
         </aside>

@@ -1,0 +1,37 @@
+{
+  "summary": "Iteration 2 testing — Reviews, Trip Bundles, and Resend Email (MOCK MODE). 36/36 pytest cases pass (24 iteration-1 regression + 12 new). Full browser bundle checkout works end-to-end: /hotels/htl_01 renders reviews section + rating breakdown + 6 review cards, bundle upsell reveals same-destination cars, selecting a car flips CTA to 'Reserve trip bundle' and updates total, Checkout shows 'Trip bundle · 2 items' pill and both item rows, demo Pay → success screen shows both items with subtotals and the email-status pill 'Email prepared (mock mode) for TEST_...'. Persistence confirmed via /api/bookings/mine (is_bundle=true, items[2], item_name='A + B') and /api/emails/mine (status='mocked', booking_id present in html, subject='Trip confirmed — bk_...'). MyBookings displays the Bundle badge.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_travelo_backend.py",
+    "/app/backend/tests/test_travelo_iter2.py",
+    "/app/backend/tests/conftest.py",
+    "/app/test_reports/pytest/travelo_iter2.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "server.py is now ~740 lines and mixes inventory, curated data, reviews synth, models, routes, and email templating — split into modules (routers/inventory.py, routers/bookings.py, services/email.py, data/reviews.py) if the app grows further.",
+    "send_booking_email always inserts a row into db.emails even in mock mode. That's intentional here but consider indexing db.emails on (user_id, created_at) once volume grows so /api/emails/mine stays fast.",
+    "Bundle bookings use total_amount from client input (not recomputed server-side). Acceptable for demo mode but should be recomputed from server-priced inventory before going live to prevent tampering.",
+    "resend.Emails.send is called via asyncio.to_thread — good, doesn't block event loop. When RESEND_API_KEY is live, consider retries/idempotency (Resend supports idempotency keys) so a retry doesn't send twice.",
+    "Bundle uses items[0]['item_id'] as item_id on the parent doc — harmless but semantically odd since item_type='bundle'. Consider dropping item_id for bundle docs to avoid confusion.",
+    "Frontend Checkout uses `Math.round(summary.total_amount * 0.11)` to derive taxes but the source page (HotelDetail) uses 0.12. The receipt tax line therefore shows a slightly different split than the widget — the total is identical so it's cosmetic, but worth aligning to one constant."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_travelo_iter2.py (new)"
+  ],
+  "success_rate": {"backend": "100% (36/36 pytest — 24 regression + 12 new)", "frontend": "100% (reviews render + rating bars + 6 review cards, bundle toggle + car pick + total update + CTA label swap, /checkout bundle pill + 2 rows, demo Pay → success with email-status pill, MyBookings Bundle badge + combined item_name)"},
+  "test_credentials": "No external creds. Test user + session_token seeded via mongosh per /app/auth_testing.md. Used both as Bearer for backend and session_token cookie for browser.",
+  "seed_data_creation": "conftest.py session-scoped fixture creates/deletes a TEST_ user + user_sessions doc; new iter2 test also cleans db.emails for that user_id via the bookings cleanup path (extended). Frontend test used a dedicated 'test-user-fe-1784133413230' user which was cleaned up (users, user_sessions, bookings, emails) after tests.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend tests live at /app/backend/tests/test_travelo_backend.py (iter1 regression) and /app/backend/tests/test_travelo_iter2.py (reviews, bundle, emails, single-booking-with-email regression). RESEND_API_KEY starts with 're_placeholder_key' so /api/payments/verify inserts db.emails rows with status='mocked' — swap to a real 're_...' key to activate live send via Resend.Emails.send. Razorpay + Google Places still placeholders (demo_mode / curated). Bundle endpoint requires >=2 items (400 otherwise), any unknown item id → 404, unauthed → 401. Frontend flow: cookie-inject session_token, hit /hotels/htl_01, click bundle-toggle-btn, pick any bundle-car-*, click hotel-book-btn → /checkout → checkout-pay-btn → checkout-success with email-status pill.",
+  "rca_of_the_issue": "N/A — no failures encountered on either backend or frontend."
+}

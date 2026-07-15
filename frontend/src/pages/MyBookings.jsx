@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Luggage } from "lucide-react";
+import { Luggage, Package } from "lucide-react";
 import api from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 
@@ -45,18 +45,34 @@ export default function MyBookings() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {items.map((b) => (
-            <div key={b.booking_id} data-testid={`booking-card-${b.booking_id}`} className="bg-[#141414] border border-white/10 rounded-xl overflow-hidden">
-              <div className="aspect-[16/10] overflow-hidden">
+            <div key={b.booking_id} data-testid={`booking-card-${b.booking_id}`} className="bg-[#141414] border border-white/10 rounded-xl overflow-hidden flex flex-col">
+              <div className="aspect-[16/10] overflow-hidden relative">
                 <img src={b.item_image} alt={b.item_name} className="w-full h-full object-cover" />
+                {b.is_bundle && (
+                  <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] text-[#FF4500] bg-black/80 border border-[#FF4500]/40 rounded-full px-2.5 py-1">
+                    <Package className="w-3 h-3" /> Bundle
+                  </div>
+                )}
               </div>
-              <div className="p-5">
+              <div className="p-5 flex-1 flex flex-col">
                 <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-white/50">
-                  <span>{b.item_type} · {b.destination}</span>
+                  <span>{b.is_bundle ? `Bundle · ${b.destination}` : `${b.item_type} · ${b.destination}`}</span>
                   <span className={`px-2 py-0.5 rounded-full border ${b.payment_status === "paid" ? "text-[#FF4500] border-[#FF4500]/40" : "text-white/60 border-white/20"}`}>{b.payment_status}</span>
                 </div>
-                <h3 className="font-display font-semibold text-lg mt-2">{b.item_name}</h3>
-                <div className="text-white/60 text-sm mt-1">{b.start_date} → {b.end_date}</div>
-                <div className="mt-4 pt-3 border-t border-white/10 flex justify-between items-center">
+                <h3 className="font-display font-semibold text-lg mt-2 leading-snug">{b.item_name}</h3>
+
+                {b.is_bundle && b.items && (
+                  <div className="flex gap-2 mt-3">
+                    {b.items.map((it, i) => (
+                      <div key={i} className="flex items-center gap-1.5 text-[10px] text-white/60 bg-white/5 border border-white/10 rounded-full px-2 py-0.5 uppercase tracking-wider">
+                        <span>{it.item_type}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <div className="text-white/60 text-sm mt-2">{b.start_date} → {b.end_date}</div>
+                <div className="mt-auto pt-4 border-t border-white/10 flex justify-between items-center">
                   <span className="font-display font-bold text-xl">₹{b.total_amount.toLocaleString("en-IN")}</span>
                   <span className="text-[10px] font-mono text-white/40">{b.booking_id}</span>
                 </div>

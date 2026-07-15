@@ -6,9 +6,11 @@ import os
 import hmac
 import hashlib
 import uuid
+import asyncio
 import logging
 import httpx
 import razorpay
+import resend
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional
@@ -29,13 +31,20 @@ api = APIRouter(prefix="/api")
 RZP_KEY_ID = os.environ.get("RAZORPAY_KEY_ID", "rzp_test_placeholder_key")
 RZP_KEY_SECRET = os.environ.get("RAZORPAY_KEY_SECRET", "placeholder_secret")
 GOOGLE_MAPS_API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY", "placeholder_google_maps_key")
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "re_placeholder_key")
+SENDER_EMAIL = os.environ.get("SENDER_EMAIL", "onboarding@resend.dev")
+FROM_NAME = os.environ.get("FROM_NAME", "Travelo")
 
 RZP_IS_LIVE = not RZP_KEY_ID.startswith("rzp_test_placeholder") and not RZP_KEY_SECRET.startswith("placeholder")
 MAPS_IS_LIVE = not GOOGLE_MAPS_API_KEY.startswith("placeholder")
+RESEND_IS_LIVE = not RESEND_API_KEY.startswith("re_placeholder")
 
 rzp_client = None
 if RZP_IS_LIVE:
     rzp_client = razorpay.Client(auth=(RZP_KEY_ID, RZP_KEY_SECRET))
+
+if RESEND_IS_LIVE:
+    resend.api_key = RESEND_API_KEY
 
 EMERGENT_AUTH_URL = "https://demobackend.emergentagent.com/auth/v1/env/oauth/session-data"
 
@@ -110,6 +119,64 @@ CURATED_PLACES = {
     ],
 }
 
+# ---------- Reviews (curated) ----------
+_AVATARS = [
+    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200",
+    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200",
+    "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200",
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200",
+    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200",
+    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200",
+]
+_TRAVELLER_PHOTOS = [
+    "https://images.pexels.com/photos/7974839/pexels-photo-7974839.jpeg",
+    "https://images.unsplash.com/photo-1757439402375-2f2a4ab0dc75",
+    "https://images.pexels.com/photos/13813465/pexels-photo-13813465.jpeg",
+    "https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4",
+    "https://images.pexels.com/photos/34124122/pexels-photo-34124122.jpeg",
+    "https://images.pexels.com/photos/9629654/pexels-photo-9629654.jpeg",
+]
+_REVIEW_LINES = [
+    ("Priya S.", "India", 5, "Absolutely breathtaking. The staff remembered our names by day two and the pool at sunset is otherworldly. Coming back for our anniversary."),
+    ("Marcus L.", "Germany", 5, "Every detail was thought through — from the welcome drink to the little chocolate on the pillow. The location made day trips effortless."),
+    ("Aisha K.", "UAE", 4, "Beautiful property, incredible views. Only knocked one star because the wifi was spotty near the beachfront cabana."),
+    ("Rahul T.", "India", 5, "Booked through Travelo and everything was seamless. The check-in was instant with our confirmation email."),
+    ("Sofia M.", "Spain", 4, "The room was gorgeous and breakfast was a highlight. Would love room service to be a touch faster next time."),
+    ("James O.", "UK", 5, "One of the best stays we've had — the concierge arranged a private guide, transport, and dinner reservations without us lifting a finger."),
+    ("Nadia R.", "France", 5, "Design lovers, this is your spot. Every corner felt curated. Sunsets from the terrace are unreal."),
+    ("Kenji A.", "Japan", 4, "Tranquil, tasteful, and the food was spectacular. Slightly compact rooms but everything else made up for it."),
+]
+
+def _build_reviews(hotel_id: str, base_rating: float):
+    import random
+    rng = random.Random(hash(hotel_id) & 0xFFFF)
+    picks = rng.sample(_REVIEW_LINES, k=6)
+    months = ["Jan", "Nov", "Oct", "Sep", "Aug", "Jul"]
+    reviews = []
+    for i, (name, country, rating, text) in enumerate(picks):
+        photos = rng.sample(_TRAVELLER_PHOTOS, k=rng.choice([0, 1, 2, 2]))
+        reviews.append({
+            "id": f"rv_{hotel_id}_{i}",
+            "name": name,
+            "country": country,
+            "avatar": _AVATARS[i % len(_AVATARS)],
+            "rating": rating,
+            "date": f"{months[i]} 2026",
+            "text": text,
+            "photos": photos,
+        })
+    # rating breakdown around base_rating
+    breakdown = {
+        "cleanliness": round(min(5.0, base_rating + 0.1), 1),
+        "location": round(min(5.0, base_rating + 0.15), 1),
+        "service": round(base_rating, 1),
+        "comfort": round(min(5.0, base_rating + 0.05), 1),
+        "value": round(max(3.5, base_rating - 0.2), 1),
+        "amenities": round(base_rating, 1),
+    }
+    return {"breakdown": breakdown, "reviews": reviews, "total": rng.randint(120, 2400)}
+
+
 # ---------- Models ----------
 class User(BaseModel):
     model_config = ConfigDict(extra="ignore")
@@ -126,6 +193,21 @@ class BookingCreate(BaseModel):
     end_date: str
     guests: int = 1
     total_amount: int  # INR
+
+
+class BundleItem(BaseModel):
+    item_type: str  # hotel | car
+    item_id: str
+    quantity: int = 1  # nights for hotel, days for car
+
+
+class BundleCreate(BaseModel):
+    items: List[BundleItem]
+    destination: str
+    start_date: str
+    end_date: str
+    guests: int = 1
+    total_amount: int
 
 class Booking(BaseModel):
     model_config = ConfigDict(extra="ignore")
@@ -438,7 +520,8 @@ async def verify_payment(body: VerifyPaymentIn, user: dict = Depends(require_use
         }},
     )
     updated = await db.bookings.find_one({"booking_id": body.booking_id}, {"_id": 0})
-    return {"ok": True, "booking": updated}
+    email_record = await send_booking_email(user, updated)
+    return {"ok": True, "booking": updated, "email": {"status": email_record["status"], "to": email_record["to"], "email_id": email_record["email_id"]}}
 
 @api.get("/bookings/mine")
 async def my_bookings(user: dict = Depends(require_user)):
@@ -451,6 +534,190 @@ async def get_booking(booking_id: str, user: dict = Depends(require_user)):
     if not b:
         raise HTTPException(status_code=404, detail="Booking not found")
     return b
+
+# Reviews
+@api.get("/hotels/{hotel_id}/reviews")
+async def hotel_reviews(hotel_id: str):
+    h = next((x for x in HOTELS if x["id"] == hotel_id), None)
+    if not h:
+        raise HTTPException(status_code=404, detail="Hotel not found")
+    return _build_reviews(hotel_id, h["rating"])
+
+
+# ---------- Email ----------
+def _fmt_inr(n: int) -> str:
+    return f"₹{n:,}".replace(",", ",")
+
+def _booking_email_html(user_name: str, booking: dict) -> str:
+    items = booking.get("items") or [{
+        "name": booking["item_name"],
+        "image": booking["item_image"],
+        "item_type": booking["item_type"],
+        "subtotal": booking["total_amount"],
+    }]
+    items_html = ""
+    for it in items:
+        items_html += f"""
+        <tr>
+          <td style="padding:12px 0;border-bottom:1px solid #222;">
+            <table width="100%" cellpadding="0" cellspacing="0"><tr>
+              <td width="80" valign="top">
+                <img src="{it.get('image','')}" width="72" height="72" style="border-radius:8px;object-fit:cover;display:block;" />
+              </td>
+              <td valign="top" style="padding-left:14px;">
+                <div style="color:#FF4500;font-size:11px;letter-spacing:2px;text-transform:uppercase;">{it.get('item_type','item')}</div>
+                <div style="color:#FAFAFA;font-size:16px;font-weight:600;margin-top:4px;">{it.get('name','')}</div>
+                <div style="color:#9CA3AF;font-size:13px;margin-top:2px;">{booking['start_date']} → {booking['end_date']}</div>
+              </td>
+              <td valign="top" align="right" style="color:#FAFAFA;font-size:15px;font-weight:600;">{_fmt_inr(it.get('subtotal', 0))}</td>
+            </tr></table>
+          </td>
+        </tr>"""
+    return f"""
+    <div style="background:#0A0A0A;padding:40px 0;font-family:Manrope,Arial,sans-serif;">
+      <table width="560" align="center" cellpadding="0" cellspacing="0" style="background:#0F0F0F;border:1px solid #222;border-radius:16px;overflow:hidden;">
+        <tr><td style="padding:32px 32px 8px 32px;">
+          <div style="display:inline-block;background:#FF4500;color:#000;font-weight:700;padding:4px 10px;border-radius:6px;font-size:12px;letter-spacing:2px;">TRAVELO</div>
+          <h1 style="color:#FAFAFA;font-size:28px;margin:20px 0 6px 0;font-weight:800;letter-spacing:-1px;">Your trip is confirmed.</h1>
+          <p style="color:#9CA3AF;font-size:14px;margin:0;">Hey {user_name or 'traveller'} — thanks for booking with Travelo. Here are your details.</p>
+        </td></tr>
+        <tr><td style="padding:16px 32px;">
+          <div style="color:#FF4500;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Booking</div>
+          <div style="color:#FAFAFA;font-family:monospace;font-size:13px;">{booking['booking_id']}</div>
+        </td></tr>
+        <tr><td style="padding:0 32px;">
+          <table width="100%" cellpadding="0" cellspacing="0">{items_html}</table>
+        </td></tr>
+        <tr><td style="padding:20px 32px;">
+          <table width="100%" cellpadding="0" cellspacing="0">
+            <tr><td style="color:#FAFAFA;font-size:20px;font-weight:800;">Total paid</td>
+                <td align="right" style="color:#FF4500;font-size:20px;font-weight:800;">{_fmt_inr(booking['total_amount'])}</td></tr>
+          </table>
+        </td></tr>
+        <tr><td style="padding:8px 32px 32px 32px;">
+          <p style="color:#6B7280;font-size:12px;margin:0;line-height:1.6;">A copy of this booking is available anytime under <em>My Trips</em>. Need help? Just reply to this email.</p>
+        </td></tr>
+      </table>
+      <div style="text-align:center;color:#4B5563;font-size:11px;margin-top:20px;letter-spacing:2px;">TRAVELO · CRAFT YOUR JOURNEY</div>
+    </div>
+    """
+
+async def send_booking_email(user: dict, booking: dict) -> dict:
+    to_email = user.get("email")
+    subject = f"Trip confirmed — {booking['booking_id']}"
+    html = _booking_email_html(user.get("name") or "", booking)
+    status = "mocked"
+    provider_id = None
+    error = None
+    if RESEND_IS_LIVE and to_email:
+        try:
+            params = {
+                "from": f"{FROM_NAME} <{SENDER_EMAIL}>",
+                "to": [to_email],
+                "subject": subject,
+                "html": html,
+            }
+            result = await asyncio.to_thread(resend.Emails.send, params)
+            provider_id = result.get("id") if isinstance(result, dict) else None
+            status = "sent"
+        except Exception as e:
+            status = "failed"
+            error = str(e)
+            logging.warning(f"Resend send failed: {e}")
+    record = {
+        "email_id": f"em_{uuid.uuid4().hex[:12]}",
+        "booking_id": booking["booking_id"],
+        "user_id": user["user_id"],
+        "to": to_email,
+        "subject": subject,
+        "html": html,
+        "status": status,
+        "provider_id": provider_id,
+        "error": error,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    }
+    await db.emails.insert_one(record)
+    record.pop("_id", None)
+    return record
+
+@api.get("/emails/mine")
+async def my_emails(user: dict = Depends(require_user)):
+    emails = await db.emails.find({"user_id": user["user_id"]}, {"_id": 0}).sort("created_at", -1).to_list(50)
+    return emails
+
+
+# ---------- Bundle bookings ----------
+@api.post("/bookings/bundle")
+async def create_bundle(body: BundleCreate, user: dict = Depends(require_user)):
+    if len(body.items) < 2:
+        raise HTTPException(status_code=400, detail="A bundle needs at least 2 items")
+
+    items_out = []
+    combined_name_parts = []
+    hero_image = None
+    for it in body.items:
+        raw = _find_item(it.item_type, it.item_id)
+        if not raw:
+            raise HTTPException(status_code=404, detail=f"{it.item_type} {it.item_id} not found")
+        subtotal = raw["price"] * max(1, it.quantity)
+        items_out.append({
+            "item_type": it.item_type,
+            "item_id": it.item_id,
+            "name": raw["name"],
+            "image": raw["image"],
+            "price": raw["price"],
+            "quantity": it.quantity,
+            "subtotal": subtotal,
+        })
+        combined_name_parts.append(raw["name"])
+        if hero_image is None:
+            hero_image = raw["image"]
+
+    booking_id = f"bk_{uuid.uuid4().hex[:12]}"
+    amount_paise = int(body.total_amount) * 100
+    if RZP_IS_LIVE and rzp_client:
+        order = rzp_client.order.create({
+            "amount": amount_paise,
+            "currency": "INR",
+            "receipt": booking_id,
+            "notes": {"booking_id": booking_id, "type": "bundle"},
+        })
+        rzp_order_id = order["id"]
+    else:
+        rzp_order_id = f"order_demo_{uuid.uuid4().hex[:14]}"
+
+    doc = {
+        "booking_id": booking_id,
+        "user_id": user["user_id"],
+        "item_type": "bundle",
+        "item_id": items_out[0]["item_id"],
+        "item_name": " + ".join(combined_name_parts),
+        "item_image": hero_image or "",
+        "items": items_out,
+        "is_bundle": True,
+        "destination": body.destination,
+        "start_date": body.start_date,
+        "end_date": body.end_date,
+        "guests": body.guests,
+        "total_amount": body.total_amount,
+        "payment_status": "created",
+        "razorpay_order_id": rzp_order_id,
+        "razorpay_payment_id": None,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    }
+    await db.bookings.insert_one(doc)
+    doc.pop("_id", None)
+    return {
+        "booking": doc,
+        "razorpay": {
+            "key_id": RZP_KEY_ID,
+            "order_id": rzp_order_id,
+            "amount": amount_paise,
+            "currency": "INR",
+            "demo_mode": not RZP_IS_LIVE,
+        },
+    }
+
 
 app.include_router(api)
 
