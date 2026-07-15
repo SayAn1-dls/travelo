@@ -20,6 +20,9 @@
 - Auth: session_token cookie (httpOnly, secure, sameSite=none) + Bearer fallback
 
 ## Implemented (2026-02)
+### Iteration 5
+- Saved Photos gallery /saved-photos: personal cross-hotel gallery from bookmarks, tile shows hotel destination + name link + like count + one-click unsave, lightbox with 'Saved' button to unsave. Bookmarks endpoint enriched with hotel_name/hotel_destination/counts/my_liked.
+
 ### Iteration 4
 - Photo Reactions: like ❤️ + bookmark 🔖 on every traveller photo (POST /api/photos/{id}/reactions), counts shown on tile + lightbox with optimistic updates, GET /api/photos/bookmarks lists a user's saved shots, feed re-sorted by (likes DESC, bookmarks DESC, created_at DESC) so top shots rise to the top with a 'Top shot' badge
 
