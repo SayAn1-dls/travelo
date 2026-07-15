@@ -905,11 +905,103 @@ async def upload_hotel_photo(
     return doc
 
 @api.get("/hotels/{hotel_id}/photos")
-async def list_hotel_photos(hotel_id: str):
-    rows = await db.hotel_photos.find({"hotel_id": hotel_id}, {"_id": 0}).sort("created_at", -1).to_list(60)
+async def list_hotel_photos(hotel_id: str, user: Optional[dict] = Depends(get_current_user)):
+    rows = await db.hotel_photos.find({"hotel_id": hotel_id}, {"_id": 0}).to_list(200)
+    if not rows:
+        return []
+    photo_ids = [r["photo_id"] for r in rows]
+
+    # aggregate counts
+    pipeline = [
+        {"$match": {"photo_id": {"$in": photo_ids}}},
+        {"$group": {"_id": {"photo_id": "$photo_id", "reaction_type": "$reaction_type"}, "count": {"$sum": 1}}},
+    ]
+    counts = {}
+    async for c in db.photo_reactions.aggregate(pipeline):
+        pid = c["_id"]["photo_id"]
+        rtype = c["_id"]["reaction_type"]
+        counts.setdefault(pid, {"like": 0, "bookmark": 0})[rtype] = c["count"]
+
+    my = {}
+    if user:
+        async for r in db.photo_reactions.find(
+            {"photo_id": {"$in": photo_ids}, "user_id": user["user_id"]},
+            {"_id": 0, "photo_id": 1, "reaction_type": 1},
+        ):
+            my.setdefault(r["photo_id"], set()).add(r["reaction_type"])
+
     for r in rows:
+        pid = r["photo_id"]
         r["url"] = f"/api/files/{r['storage_path']}"
+        r["like_count"] = counts.get(pid, {}).get("like", 0)
+        r["bookmark_count"] = counts.get(pid, {}).get("bookmark", 0)
+        r["my_liked"] = "like" in my.get(pid, set())
+        r["my_bookmarked"] = "bookmark" in my.get(pid, set())
+
+    # best shots rise to the top: likes desc, then created_at desc
+    rows.sort(key=lambda p: (-p["like_count"], -p["bookmark_count"], p["created_at"]), reverse=False)
+    # sort was ascending on created_at (older first) — flip that
+    rows.sort(key=lambda p: (-p["like_count"], -p["bookmark_count"], p["created_at"] if isinstance(p["created_at"], str) else ""), reverse=False)
+    # simpler and correct: sort desc by (like_count, bookmark_count, created_at)
+    rows.sort(key=lambda p: (p["like_count"], p["bookmark_count"], p["created_at"]), reverse=True)
     return rows
+
+
+# ---------- Photo Reactions ----------
+class ReactionIn(BaseModel):
+    reaction_type: str  # 'like' | 'bookmark'
+
+@api.post("/photos/{photo_id}/reactions")
+async def toggle_reaction(photo_id: str, body: ReactionIn, user: dict = Depends(require_user)):
+    if body.reaction_type not in {"like", "bookmark"}:
+        raise HTTPException(status_code=400, detail="Invalid reaction_type")
+    photo = await db.hotel_photos.find_one({"photo_id": photo_id}, {"_id": 0})
+    if not photo:
+        raise HTTPException(status_code=404, detail="Photo not found")
+    existing = await db.photo_reactions.find_one({
+        "photo_id": photo_id,
+        "user_id": user["user_id"],
+        "reaction_type": body.reaction_type,
+    })
+    if existing:
+        await db.photo_reactions.delete_one({
+            "photo_id": photo_id,
+            "user_id": user["user_id"],
+            "reaction_type": body.reaction_type,
+        })
+        active = False
+    else:
+        await db.photo_reactions.insert_one({
+            "photo_id": photo_id,
+            "user_id": user["user_id"],
+            "reaction_type": body.reaction_type,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+        })
+        active = True
+
+    like_count = await db.photo_reactions.count_documents({"photo_id": photo_id, "reaction_type": "like"})
+    bookmark_count = await db.photo_reactions.count_documents({"photo_id": photo_id, "reaction_type": "bookmark"})
+    return {
+        "photo_id": photo_id,
+        "reaction_type": body.reaction_type,
+        "active": active,
+        "like_count": like_count,
+        "bookmark_count": bookmark_count,
+    }
+
+@api.get("/photos/bookmarks")
+async def my_bookmarks(user: dict = Depends(require_user)):
+    reactions = await db.photo_reactions.find(
+        {"user_id": user["user_id"], "reaction_type": "bookmark"},
+        {"_id": 0},
+    ).sort("created_at", -1).to_list(200)
+    photo_ids = [r["photo_id"] for r in reactions]
+    photos = await db.hotel_photos.find({"photo_id": {"$in": photo_ids}}, {"_id": 0}).to_list(200)
+    order = {pid: i for i, pid in enumerate(photo_ids)}
+    photos.sort(key=lambda p: order.get(p["photo_id"], 9999))
+    for p in photos:
+        p["url"] = f"/api/files/{p['storage_path']}"
+    return photos
 
 
 # ---------- AI Concierge ----------

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Camera, Upload, X } from "lucide-react";
+import { Camera, Upload, X, Heart, Bookmark } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -17,13 +17,13 @@ export default function PhotoWall({ hotelId }) {
   const fileRef = useRef(null);
 
   const load = () => api.get(`/hotels/${hotelId}/photos`).then((r) => setPhotos(r.data));
-  useEffect(() => { load(); /* eslint-disable-next-line */ }, [hotelId]);
+  useEffect(() => { load(); }, [hotelId, user?.user_id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onPick = () => fileRef.current?.click();
 
   const onChange = async (e) => {
     const file = e.target.files?.[0];
-    e.target.value = ""; // reset so same file can be picked again
+    e.target.value = "";
     if (!file) return;
     if (!user) { toast.info("Sign in and complete a stay to share photos"); return; }
     if (file.size > 5 * 1024 * 1024) { toast.error("Image must be under 5MB"); return; }
@@ -43,6 +43,34 @@ export default function PhotoWall({ hotelId }) {
       toast.error(msg);
     } finally {
       setUploading(false);
+    }
+  };
+
+  const react = async (photo, kind) => {
+    if (!user) { toast.info("Sign in to react to photos"); return; }
+    // optimistic update
+    setPhotos((prev) => prev.map((p) => {
+      if (p.photo_id !== photo.photo_id) return p;
+      const keyMy = kind === "like" ? "my_liked" : "my_bookmarked";
+      const keyCount = kind === "like" ? "like_count" : "bookmark_count";
+      const active = !p[keyMy];
+      return { ...p, [keyMy]: active, [keyCount]: p[keyCount] + (active ? 1 : -1) };
+    }));
+    if (lightbox && lightbox.photo_id === photo.photo_id) {
+      const keyMy = kind === "like" ? "my_liked" : "my_bookmarked";
+      const keyCount = kind === "like" ? "like_count" : "bookmark_count";
+      const active = !lightbox[keyMy];
+      setLightbox({ ...lightbox, [keyMy]: active, [keyCount]: lightbox[keyCount] + (active ? 1 : -1) });
+    }
+    try {
+      const { data } = await api.post(`/photos/${photo.photo_id}/reactions`, { reaction_type: kind });
+      // reconcile with server counts
+      setPhotos((prev) => prev.map((p) => (p.photo_id === photo.photo_id
+        ? { ...p, like_count: data.like_count, bookmark_count: data.bookmark_count, [`my_${kind === "like" ? "liked" : "bookmarked"}`]: data.active }
+        : p)));
+    } catch (e) {
+      toast.error(e?.response?.data?.detail || "Something went wrong");
+      await load();
     }
   };
 
@@ -102,25 +130,52 @@ export default function PhotoWall({ hotelId }) {
         </div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-          {photos.map((p) => (
-            <button
+          {photos.map((p, idx) => (
+            <div
               key={p.photo_id}
               data-testid={`photo-tile-${p.photo_id}`}
-              onClick={() => setLightbox(p)}
               className="group relative aspect-square overflow-hidden rounded-xl border border-white/10 card-lift"
             >
-              <img
-                src={`${BACKEND_URL}${p.url}`}
-                alt={p.caption || "traveller photo"}
-                className="w-full h-full object-cover group-hover:scale-110"
-                style={{ transition: "transform 0.4s ease" }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100" style={{ transition: "opacity 0.3s ease" }} />
-              <div className="absolute bottom-2 left-2 right-2 opacity-0 group-hover:opacity-100 text-[11px] text-white/90 text-left" style={{ transition: "opacity 0.3s ease" }}>
-                <div className="font-medium truncate">{p.user_name}</div>
-                {p.caption && <div className="truncate text-white/70">{p.caption}</div>}
+              {idx === 0 && (p.like_count > 0 || p.bookmark_count > 0) && (
+                <div className="absolute top-2 left-2 z-10 text-[9px] uppercase tracking-[0.2em] bg-[#FF4500] text-black font-bold px-2 py-0.5 rounded-full">
+                  Top shot
+                </div>
+              )}
+              <button onClick={() => setLightbox(p)} className="absolute inset-0 w-full h-full">
+                <img
+                  src={`${BACKEND_URL}${p.url}`}
+                  alt={p.caption || "traveller photo"}
+                  className="w-full h-full object-cover group-hover:scale-110"
+                  style={{ transition: "transform 0.4s ease" }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
+              </button>
+
+              {/* Reactions overlay - always visible for context */}
+              <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none">
+                <div className="text-[11px] text-white/90 max-w-[60%]">
+                  <div className="font-medium truncate pointer-events-auto">{p.user_name}</div>
+                </div>
+                <div className="flex items-center gap-1.5 pointer-events-auto">
+                  <button
+                    data-testid={`photo-like-btn-${p.photo_id}`}
+                    onClick={(e) => { e.stopPropagation(); react(p, "like"); }}
+                    className={`flex items-center gap-1 px-2 py-1 rounded-full backdrop-blur-md border text-[11px] font-medium transition-colors ${p.my_liked ? "bg-[#FF4500] text-black border-[#FF4500]" : "bg-black/60 text-white border-white/20 hover:border-white/40"}`}
+                  >
+                    <Heart className={`w-3 h-3 ${p.my_liked ? "fill-black text-black" : ""}`} strokeWidth={2} />
+                    <span data-testid={`photo-like-count-${p.photo_id}`}>{p.like_count}</span>
+                  </button>
+                  <button
+                    data-testid={`photo-bookmark-btn-${p.photo_id}`}
+                    onClick={(e) => { e.stopPropagation(); react(p, "bookmark"); }}
+                    className={`flex items-center gap-1 px-2 py-1 rounded-full backdrop-blur-md border text-[11px] font-medium transition-colors ${p.my_bookmarked ? "bg-white text-black border-white" : "bg-black/60 text-white border-white/20 hover:border-white/40"}`}
+                  >
+                    <Bookmark className={`w-3 h-3 ${p.my_bookmarked ? "fill-black text-black" : ""}`} strokeWidth={2} />
+                    <span>{p.bookmark_count}</span>
+                  </button>
+                </div>
               </div>
-            </button>
+            </div>
           ))}
         </div>
       )}
@@ -140,12 +195,30 @@ export default function PhotoWall({ hotelId }) {
             <X className="w-5 h-5 text-white" />
           </button>
           <div className="max-w-3xl w-full" onClick={(e) => e.stopPropagation()}>
-            <img src={`${BACKEND_URL}${lightbox.url}`} alt="" className="w-full max-h-[75vh] object-contain rounded-xl" />
+            <img src={`${BACKEND_URL}${lightbox.url}`} alt="" className="w-full max-h-[70vh] object-contain rounded-xl" />
             <div className="mt-4 flex items-center gap-3">
               {lightbox.user_picture && <img src={lightbox.user_picture} alt="" className="w-9 h-9 rounded-full border border-white/20" />}
-              <div>
+              <div className="flex-1">
                 <div className="text-white font-medium">{lightbox.user_name}</div>
                 {lightbox.caption && <div className="text-white/70 text-sm mt-0.5">{lightbox.caption}</div>}
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => react(lightbox, "like")}
+                  data-testid={`lightbox-like-btn`}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-colors ${lightbox.my_liked ? "bg-[#FF4500] text-black border-[#FF4500]" : "bg-white/5 text-white border-white/20 hover:border-white/40"}`}
+                >
+                  <Heart className={`w-4 h-4 ${lightbox.my_liked ? "fill-black" : ""}`} />
+                  <span className="text-sm font-medium">{lightbox.like_count}</span>
+                </button>
+                <button
+                  onClick={() => react(lightbox, "bookmark")}
+                  data-testid={`lightbox-bookmark-btn`}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-colors ${lightbox.my_bookmarked ? "bg-white text-black border-white" : "bg-white/5 text-white border-white/20 hover:border-white/40"}`}
+                >
+                  <Bookmark className={`w-4 h-4 ${lightbox.my_bookmarked ? "fill-black" : ""}`} />
+                  <span className="text-sm font-medium">{lightbox.bookmark_count}</span>
+                </button>
               </div>
             </div>
           </div>

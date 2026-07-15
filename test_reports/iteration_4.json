@@ -1,0 +1,52 @@
+{
+  "summary": "Iteration 4 testing — Photo Reactions (like + bookmark). Backend: 9/9 new iter4 pytest cases pass covering POST /api/photos/{id}/reactions (auth-required, invalid type→400, unknown photo→404, like toggle, like+bookmark independence, my_liked/my_bookmarked reflection), GET /api/hotels/{id}/photos with counts + my_* flags (unauth defaults false), ordering (likes DESC, bookmark DESC, created_at DESC with 3-photo seed + tiebreak on same counts), GET /api/photos/bookmarks (auth-required, reverse chronological, includes url). Full regression: 67/68 pass — 1 PRE-EXISTING xdist race in test_travelo_iter2.py::TestEmails::test_emails_mine_lists_mocked (unrelated to iter4; passes in serial with -n 0; reason: xdist loadscope splits TestBundleBookings and TestEmails onto different workers with separate seeded_session users). Frontend PhotoWall on /hotels/htl_01: unauth click → 'Sign in to react to photos' toast (no count change); authed click → orange like button + bg-white bookmark button, counts increment (+1) and toggle back (-1), reactions independent; 'Top shot' badge appears on top-ranked tile after reactions; lightbox opens on tile click, lightbox-like-btn/lightbox-bookmark-btn present with counts that sync with grid tiles on toggle. Screenshot captured showing filled bookmark (count 1) in lightbox.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "test infra", "issue": "test_travelo_iter2.py::TestEmails::test_emails_mine_lists_mocked FLAKY under xdist -n 2 --dist loadscope (fails when TestEmails runs on a different worker than TestBundleBookings; passes with -n 0). Pre-existing infra issue introduced by pytest.ini loadscope config; unrelated to iter4. Consider consolidating the email verification into TestBundleBookings class so both tests share the same worker/session_token, or make the assertion query by TestBundleBookings.bundle_booking_id in mongo instead of via /api/emails/mine."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_travelo_iter4.py",
+    "/app/test_reports/pytest/travelo_iter4.xml",
+    "/app/test_reports/pytest/travelo_all_iter4.xml"
+  ],
+  "action_items": [
+    "OPTIONAL: Address the pre-existing xdist race in TestEmails (not an iter4 regression — passes in serial).",
+    "Consider server.py refactor into modules (recurring since iter2, now 1112 lines with reactions added).",
+    "Sort in list_hotel_photos is done client-side over up to 200 rows and does THREE .sort() calls (lines 942/944/946) — only the last one is effective; the first two are dead code. Trim to a single sort for clarity."
+  ],
+  "critical_code_review_comments": [
+    "server.py grew to 1112 lines — split into routers (routers/photos.py, routers/reactions.py, routers/wishlist.py, etc.). This has been recommended across iter2/iter3/iter4.",
+    "list_hotel_photos has THREE consecutive rows.sort() calls (lines 942, 944, 946) as a workaround; only the last is effective. Please delete lines 942-945 to keep just the correct sort by (like_count, bookmark_count, created_at) desc.",
+    "POST /api/photos/{photo_id}/reactions has no rate limiting — a malicious user could rapid-toggle to hammer the DB. Consider a small per-user per-photo cooldown or IP-level limit.",
+    "GET /api/photos/bookmarks returns up to 200 photos but does not de-duplicate hotel_photos rows if a photo_id points to a deleted photo (find({photo_id: {$in: []}}) still ok, but if photo was deleted after bookmark, the bookmark reaction is orphaned and silently dropped from the list). Consider surfacing orphaned bookmarks or cleaning them up.",
+    "photo_reactions has no compound unique index on (photo_id, user_id, reaction_type) — a race could theoretically insert duplicate reactions if two toggle requests arrive concurrently. Consider `db.photo_reactions.create_index([('photo_id', 1), ('user_id', 1), ('reaction_type', 1)], unique=True)` at startup.",
+    "get_current_user Optional dependency is used by list_hotel_photos so my_liked/my_bookmarked reflect the caller — good. But it depends on cookie OR bearer; ensure both are tested in production (bearer path is covered here, cookie path relies on frontend axios withCredentials which was already working in iter3).",
+    "Object storage still uses local FS fallback (documented) — files persist under /app/backend/uploads and are lost on redeploy. Not an iter4 change but worth calling out that reactions target photos whose file bytes may vanish."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_travelo_iter4.py (new)"
+  ],
+  "success_rate": {
+    "backend": "100% for iter4 new tests (9/9). Full suite: 67/68 (98.5%) — 1 pre-existing iter2 xdist flakiness unrelated to iter4.",
+    "frontend": "100% (unauth toast + no count change; authed like/bookmark toggle both directions; orange/white filled state; independent reactions; Top shot badge; lightbox open/close + like/bookmark buttons with grid<>lightbox count sync)"
+  },
+  "test_credentials": "No external creds. Session fixture creates TEST_ user + session in Mongo per /app/auth_testing.md. Frontend used dedicated 'test-user-fe4-1784135077078' with a paid htl_01 booking + 2 uploaded photos — cleaned up after run.",
+  "seed_data_creation": "iter4 pytest fixture (module-scoped seeded_photo) uploads a real PNG via authed POST /api/hotels/htl_01/photos. Ordering test uploads 3 PNGs to htl_03 and seeds photo_reactions rows directly (with fake user_ids) to simulate different reaction counts. Bookmarks test uploads 2 PNGs and bookmarks both via the API. All test-created bookings/photos/reactions/uploaded_files are deleted on teardown.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iter4 tests at /app/backend/tests/test_travelo_iter4.py cover: (a) POST /api/photos/{id}/reactions auth/400/404/toggle/independence, (b) GET /api/hotels/{id}/photos new fields (counts + my_liked/my_bookmarked with unauth defaults false), (c) ordering by (like_count DESC, bookmark_count DESC, created_at DESC) with 3-photo seed + tiebreak, (d) GET /api/photos/bookmarks auth-required + reverse chronological + url field. Sort is done in Python (server.py:946) — safe for the current 200-row cap but flag for future scale. PRE-EXISTING FLAKY TEST: test_travelo_iter2.py::TestEmails::test_emails_mine_lists_mocked fails under -n 2 loadscope (passes in serial); not iter4's fault — introduced by xdist splitting classes across workers. Object storage still LOCAL FS fallback; Razorpay/Places/Resend still demo/curated/mock; Concierge LIVE Claude Sonnet 4.5.",
+  "rca_of_the_issue": "test_travelo_iter2.py::TestEmails::test_emails_mine_lists_mocked FAILURE RCA: pytest.ini enforces `-n 2 --dist loadscope` — with loadscope, each TEST CLASS is a scope group and can be assigned to a different worker. TestBundleBookings runs on gw0 and generates the mocked email (via /api/payments/verify) for gw0's seeded_session user_id. TestEmails runs on gw1 with a DIFFERENT seeded_session user_id (session-scoped fixtures are per-worker under xdist). So gw1's /api/emails/mine call returns [] because that user never created a booking. MITIGATION: Move the email-list assertion into TestBundleBookings class so it always runs on the same worker as its dependency, OR query mongo_db.emails directly by TestBundleBookings.bundle_booking_id (which is a class attribute that would only work within same worker anyway — so the cleanest fix is class consolidation). Verified: `pytest backend/tests/test_travelo_iter2.py -n 0` → 12/12 pass.",
+  "mocked_flows_still_in_effect": [
+    "Razorpay: DEMO MODE.",
+    "Google Places: CURATED fallback.",
+    "Resend email: MOCK MODE.",
+    "Object storage: LOCAL FILESYSTEM FALLBACK."
+  ]
+}
