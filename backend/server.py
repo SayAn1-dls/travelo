@@ -991,12 +991,43 @@ async def my_bookmarks(user: dict = Depends(require_user)):
         {"user_id": user["user_id"], "reaction_type": "bookmark"},
         {"_id": 0},
     ).sort("created_at", -1).to_list(200)
+    if not reactions:
+        return []
     photo_ids = [r["photo_id"] for r in reactions]
     photos = await db.hotel_photos.find({"photo_id": {"$in": photo_ids}}, {"_id": 0}).to_list(200)
     order = {pid: i for i, pid in enumerate(photo_ids)}
     photos.sort(key=lambda p: order.get(p["photo_id"], 9999))
+
+    # count aggregate for like/bookmark counts
+    pipeline = [
+        {"$match": {"photo_id": {"$in": photo_ids}}},
+        {"$group": {"_id": {"photo_id": "$photo_id", "reaction_type": "$reaction_type"}, "count": {"$sum": 1}}},
+    ]
+    counts = {}
+    async for c in db.photo_reactions.aggregate(pipeline):
+        pid = c["_id"]["photo_id"]
+        counts.setdefault(pid, {"like": 0, "bookmark": 0})[c["_id"]["reaction_type"]] = c["count"]
+
+    hotel_map = {h["id"]: h for h in HOTELS}
     for p in photos:
         p["url"] = f"/api/files/{p['storage_path']}"
+        h = hotel_map.get(p["hotel_id"], {})
+        p["hotel_name"] = h.get("name", p["hotel_id"])
+        p["hotel_destination"] = h.get("destination", "")
+        p["like_count"] = counts.get(p["photo_id"], {}).get("like", 0)
+        p["bookmark_count"] = counts.get(p["photo_id"], {}).get("bookmark", 0)
+        p["my_liked"] = False  # will resolve below
+        p["my_bookmarked"] = True
+
+    # my_liked lookup for these photos
+    async for r in db.photo_reactions.find(
+        {"photo_id": {"$in": photo_ids}, "user_id": user["user_id"], "reaction_type": "like"},
+        {"_id": 0, "photo_id": 1},
+    ):
+        for p in photos:
+            if p["photo_id"] == r["photo_id"]:
+                p["my_liked"] = True
+
     return photos
 
 

@@ -37,6 +37,9 @@ export default function Navbar() {
             <Link to="/wishlist" data-testid="nav-wishlist" className={`hover:text-white transition-colors ${isActive("/wishlist") ? "text-white" : "text-white/60"}`}>Wishlist</Link>
           )}
           {user && (
+            <Link to="/saved-photos" data-testid="nav-saved-photos" className={`hover:text-white transition-colors ${isActive("/saved-photos") ? "text-white" : "text-white/60"}`}>Saved</Link>
+          )}
+          {user && (
             <Link to="/my-bookings" data-testid="nav-bookings" className={`hover:text-white transition-colors ${isActive("/my-bookings") ? "text-white" : "text-white/60"}`}>My Trips</Link>
           )}
         </nav>

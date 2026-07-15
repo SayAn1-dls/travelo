@@ -15,6 +15,7 @@ import Destination from "@/pages/Destination";
 import Checkout from "@/pages/Checkout";
 import MyBookings from "@/pages/MyBookings";
 import Wishlist from "@/pages/Wishlist";
+import SavedPhotos from "@/pages/SavedPhotos";
 import AuthCallback from "@/pages/AuthCallback";
 
 function AppShell() {
@@ -38,6 +39,7 @@ function AppShell() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/my-bookings" element={<MyBookings />} />
           <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/saved-photos" element={<SavedPhotos />} />
           <Route path="/auth/callback" element={<AuthCallback />} />
         </Routes>
       </main>

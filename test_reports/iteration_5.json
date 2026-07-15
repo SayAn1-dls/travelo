@@ -1,0 +1,51 @@
+{
+  "summary": "Iteration 5 testing — Saved Photos gallery + enriched GET /api/photos/bookmarks. Backend: 3/3 new iter5 pytest cases pass covering (a) 401 unauth, (b) empty [] when no bookmarks, (c) reverse-chronological ordering + enriched fields (hotel_name, hotel_destination, like_count, bookmark_count, my_liked reflecting caller's like state, my_bookmarked=true always, url) across hotels htl_01 & htl_03, no _id leakage, and toggle-off unbookmark drops the photo from the list. Full regression: 71/71 pass across iter1-5 (the previously flaky test_travelo_iter2.py::TestEmails::test_emails_mine_lists_mocked also passed this run). Frontend: cookie-injected session + one seeded paid booking + one uploaded+bookmarked photo → nav-saved-photos link present when authed, saved-photos-page renders with saved-photo-<pid> tile showing the correct hotel_name ('The Coral Vault') and /hotels/htl_01 link, saved-like-btn count goes 0→1 with orange fill after click, clicking the tile opens saved-lightbox with saved-lightbox-unsave button, clicking Saved removes the tile immediately, closes the lightbox, and shows saved-photos-empty block with CTA. Unauth flow: /saved-photos renders saved-photos-unauth block and Nav 'Saved' link is hidden.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_travelo_iter5.py",
+    "/app/test_reports/pytest/travelo_iter5.xml",
+    "/app/test_reports/pytest/travelo_all_iter5.xml"
+  ],
+  "action_items": [
+    "OPTIONAL: server.py has grown to 1140 lines with iter5 additions — split into routers (routers/photos.py for uploads+reactions+bookmarks, routers/wishlist.py, routers/bookings.py, routers/concierge.py). This has been recommended across iter2/iter3/iter4/iter5.",
+    "OPTIONAL: GET /api/photos/bookmarks silently drops orphaned bookmarks whose hotel_photo row was deleted. Consider cleaning up orphan photo_reactions when photos are deleted, or surfacing them so the user knows.",
+    "OPTIONAL: /api/photos/bookmarks now issues 3 mongo round-trips (reactions.find, hotel_photos.find, aggregate for counts, plus another find for my_liked). At 200 rows this is fine; if bookmark volume grows a single $lookup pipeline would be cheaper.",
+    "OPTIONAL: photo_reactions still lacks a compound unique index on (photo_id, user_id, reaction_type) — race could insert duplicates."
+  ],
+  "critical_code_review_comments": [
+    "server.py now 1140 lines — please split into modular routers (recurring recommendation).",
+    "GET /api/photos/bookmarks: hotel_name/hotel_destination are resolved from the in-memory HOTELS list. If a hotel is removed from that list the bookmark shows the raw hotel_id as name and empty destination — acceptable given curated hotel data, but should be documented.",
+    "In SavedPhotos.jsx react() function: on POST error, load() is re-called AFTER the optimistic mutation. If load() fails silently (e.g., network), the UI stays in an incorrect optimistic state. Consider reverting the optimistic change explicitly on error before calling load().",
+    "SavedPhotos lightbox click on the outer overlay uses onClick={() => setLightbox(null)} while the inner content uses e.stopPropagation() — correct. But the like/bookmark buttons in the lightbox rely on default event bubbling; if they later add stopPropagation() the parent close would still work. Fine as-is.",
+    "photo_reactions insertions are still not de-duplicated at the index level — a rapid double-click on the heart could race and insert two 'like' rows, which would then be reflected as like_count=2 on GET. Consider unique index (photo_id, user_id, reaction_type)."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_travelo_iter5.py (new)",
+    "/app/test_reports/iteration_5.json (new)",
+    "/app/test_reports/pytest/travelo_iter5.xml (new)",
+    "/app/test_reports/pytest/travelo_all_iter5.xml (new)"
+  ],
+  "success_rate": {
+    "backend": "100% for iter5 new tests (3/3). Full suite iter1-5: 71/71 (100%). Previously flaky test_emails_mine_lists_mocked also passed this run.",
+    "frontend": "100% — nav-saved-photos visible only when authed, saved-photos-page + saved-photo-<pid> tile render with correct hotel_name+destination, like button toggles orange+count 0→1, tile click opens saved-lightbox with saved-lightbox-unsave, unsave click removes tile + closes lightbox + shows saved-photos-empty. Unauth: saved-photos-unauth block renders and nav 'Saved' link is hidden."
+  },
+  "test_credentials": "No external creds. iter5 pytest reuses the session-scoped seeded_session fixture (TEST_ user + Bearer token in Mongo per /app/auth_testing.md). Frontend used a dedicated 'fe5-user-1784135541321' with one paid htl_01 booking, one uploaded photo, one bookmark reaction — all cleaned up after run.",
+  "seed_data_creation": "iter5 pytest seeds one paid booking to htl_01 and htl_03, uploads 2 PNGs (one per hotel), bookmarks both via POST /api/photos/{id}/reactions and likes the first, then asserts enriched GET /api/photos/bookmarks. Frontend E2E seeded a session token + paid htl_01 booking + one uploaded photo + one bookmark reaction; verified UI flow; cleaned up.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iter5 tests at /app/backend/tests/test_travelo_iter5.py. GET /api/photos/bookmarks response contract: list of photo dicts with photo_id, hotel_id, user_id, user_name, user_picture, storage_path, caption, created_at, url (starts with /api/files/), hotel_name (from in-memory HOTELS list, falls back to hotel_id), hotel_destination (from HOTELS, falls back to ''), like_count, bookmark_count, my_liked (bool reflecting caller), my_bookmarked=true always, no _id. Order = photo_reactions.created_at DESC of the caller's bookmark rows. Toggle-off unbookmark removes photo from list. All iter1-4 tests still green. Mocked flows unchanged (Razorpay demo, Google Places curated, Resend mock, Object storage local FS). Concierge still LIVE Claude Sonnet 4.5.",
+  "mocked_flows_still_in_effect": [
+    "Razorpay: DEMO MODE.",
+    "Google Places: CURATED fallback.",
+    "Resend email: MOCK MODE.",
+    "Object storage: LOCAL FILESYSTEM FALLBACK."
+  ]
+}
