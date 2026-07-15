@@ -1,0 +1,51 @@
+{
+  "summary": "Iteration 3 testing — Wishlist, Hotel Photo Uploads (with local FS fallback), and AI Concierge (Claude Sonnet 4.5 via emergentintegrations). Backend: 59/59 pytest cases pass (36 iter1+iter2 regression + 23 new iter3). Frontend: end-to-end validated via cookie-injected session — unauth heart click shows 'Sign in to save' toast, authed Navbar shows 'Wishlist' link, heart toggles state and orange fill on /hotels, /wishlist renders hotel-card-htl_01 after saving, HotelDetail /hotels/htl_01 photo-wall-section accepts a PNG upload (paid booking seeded) and a new photo-tile-* appears immediately, /destinations/goa concierge-section shows 3 pulse skeletons while loading then a Trip Vibe summary + Day 1 + Day 2 cards with Morning/Afternoon/Evening/Insider Tip fields (screenshot captured).",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_travelo_iter3.py",
+    "/app/backend/tests/test_travelo_iter2.py",
+    "/app/backend/tests/test_travelo_backend.py",
+    "/app/backend/tests/conftest.py",
+    "/app/test_reports/pytest/travelo_iter3.xml",
+    "/app/test_reports/pytest/travelo_all.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "server.py is now 1021 lines — please split into modules (routers/inventory.py, routers/bookings.py, routers/wishlist.py, routers/photos.py, routers/concierge.py, services/email.py, services/storage.py, data/reviews.py). This has been a recurring recommendation across iter2 and iter3 and is now a real maintenance concern.",
+    "GET /api/hotels/{hotel_id}/photos does not validate hotel_id — returns [] for unknown ids instead of 404. Not strictly wrong, but inconsistent with POST which does 404. Consider adding the hotel-existence check for symmetry.",
+    "MAX_UPLOAD_BYTES is enforced only after reading the full body into memory (`data = await file.read()` then size check). A malicious client can still send arbitrarily large payloads and consume memory. Consider streaming to a temp file with a hard size cutoff, or setting the ASGI request-body limit.",
+    "storage_path uniqueness is uuid4-based (very low collision risk) but there is no per-user rate limit. Consider a simple per-user rate limit on POST /api/hotels/{id}/photos (e.g., 20/hour) to avoid abuse when EMERGENT_LLM_KEY gets storage privileges and cost matters.",
+    "Concierge endpoint is public (no auth) and calls a paid LLM — susceptible to abuse. Consider requiring auth or rate-limiting by IP.",
+    "Concierge fallback JSON stripping only handles ```json fences; if the LLM ever wraps in <thinking>…</thinking> tags or adds prose after the JSON, the 'find first {...} block' logic will grab something malformed. Consider a stricter regex or a JSON-only response format (Anthropic supports response_format hints).",
+    "Local storage fallback writes files to /app/backend/uploads which is inside the deployed backend directory. Fine for demo, but on redeploy those files vanish. Also `.ctype` sidecar files pollute the same folder — consider a dedicated metadata dir or a Mongo `content_type` field (already stored, so the sidecar file could be removed to keep the tree clean).",
+    "The wishlist endpoint sorts hotels client-side by insertion order after Mongo fetch — fine for small counts, but Mongo already returns rows sorted desc. Just build `hotels` in the same order without re-sorting.",
+    "get_current_user compares expires_at as ISO string; if the string was written without timezone info (e.g., via mongosh's `new Date()` outside our code path), the parse+replace logic may not correctly compare. Consider storing as native BSON date."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_travelo_iter3.py (new)"
+  ],
+  "success_rate": {
+    "backend": "100% (59/59 pytest — 36 regression + 23 new iter3)",
+    "frontend": "100% (unauth heart toast, navbar wishlist link, heart toggle + orange fill, /wishlist hotel-card renders, photo-wall upload → new photo-tile appears, /destinations/goa concierge full flow with skeletons → summary + Day 1 + Day 2 cards containing morning/afternoon/evening/tip)"
+  },
+  "test_credentials": "No external creds. Test user + session_token seeded via mongosh per /app/auth_testing.md. Used both as Bearer for backend and session_token cookie for browser.",
+  "seed_data_creation": "conftest.py session-scoped fixture creates/deletes a TEST_ user + session; iter3 tests additionally seed a `paid` booking row per test (both single-hotel and is_bundle variants) and clean up hotel_photos + uploaded_files + wishlists + bookings after each test. Frontend flow used a dedicated 'test-user-fe3-1784134410082' user with a paid htl_01 booking — fully cleaned up after the run.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iter3 tests live at /app/backend/tests/test_travelo_iter3.py — cover: (a) wishlist toggle + GET + ordering + 401/404, (b) photo upload with paid single/bundle bookings + 401/403/404/400/413/empty guards + /api/files/... serving actual bytes with content-type, (c) concierge live LLM call for goa/jaipur + days clamping to 7 + 404 for unknown destination. Object storage is in LOCAL FILESYSTEM fallback (/app/backend/uploads) because init returns 401 for the current EMERGENT_LLM_KEY — code handles this transparently and file bytes ARE served correctly via /api/files/{path}. Concierge is LIVE Claude Sonnet 4.5 via emergentintegrations and reliably returned valid JSON in every test run (~10-15s per call). Razorpay + Google Places + Resend still in demo/curated/mock mode.",
+  "rca_of_the_issue": "N/A — no failures encountered on either backend or frontend.",
+  "mocked_flows_still_in_effect": [
+    "Razorpay: DEMO MODE (order_demo_* ids, signature verification skipped).",
+    "Google Places: CURATED fallback.",
+    "Resend email: MOCK MODE (rows saved to db.emails with status='mocked').",
+    "Object storage: LOCAL FILESYSTEM FALLBACK (files under /app/backend/uploads, served via /api/files/{path})."
+  ]
+}

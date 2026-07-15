@@ -4,6 +4,7 @@ import { MapPin, Star, ArrowRight } from "lucide-react";
 import api from "@/lib/api";
 import HotelCard from "@/components/HotelCard";
 import CarCard from "@/components/CarCard";
+import Concierge from "@/components/Concierge";
 
 export default function Destination() {
   const { slug } = useParams();
@@ -77,6 +78,9 @@ export default function Destination() {
           ))}
         </div>
       </section>
+
+      {/* AI Concierge */}
+      <Concierge destination={dest} />
 
       {/* Hotels in destination */}
       {hotels.length > 0 && (

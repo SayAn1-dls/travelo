@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Star, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import WishlistButton from "@/components/WishlistButton";
 
 export default function HotelCard({ hotel, dest }) {
   return (
@@ -15,6 +16,9 @@ export default function HotelCard({ hotel, dest }) {
         <div className="absolute top-3 left-3 backdrop-blur-md bg-black/50 border border-white/15 rounded-full px-3 py-1 text-xs font-medium flex items-center gap-1.5">
           <Star className="w-3 h-3 fill-[#FF4500] text-[#FF4500]" /> {hotel.rating}
           <span className="text-white/50">({hotel.reviews})</span>
+        </div>
+        <div className="absolute top-3 right-3">
+          <WishlistButton hotelId={hotel.id} />
         </div>
       </div>
       <div className="p-5 flex-1 flex flex-col">

@@ -11,6 +11,8 @@ import api from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 import ReviewsSection from "@/components/ReviewsSection";
 import BundleUpsell from "@/components/BundleUpsell";
+import PhotoWall from "@/components/PhotoWall";
+import WishlistButton from "@/components/WishlistButton";
 
 export default function HotelDetail() {
   const { id } = useParams();
@@ -96,7 +98,10 @@ export default function HotelDetail() {
           <div className="uppercase tracking-[0.2em] text-xs text-[#FF4500] flex items-center gap-2 mb-3">
             <MapPin className="w-3 h-3" /> {hotel.destination}
           </div>
-          <h1 className="font-display font-bold text-4xl md:text-5xl tracking-tighter leading-none">{hotel.name}</h1>
+          <div className="flex items-start justify-between gap-4">
+            <h1 className="font-display font-bold text-4xl md:text-5xl tracking-tighter leading-none">{hotel.name}</h1>
+            <WishlistButton hotelId={hotel.id} size="lg" />
+          </div>
           <div className="flex items-center gap-4 mt-4 text-sm">
             <div className="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full px-3 py-1">
               <Star className="w-3.5 h-3.5 fill-[#FF4500] text-[#FF4500]" /> {hotel.rating}
@@ -127,6 +132,9 @@ export default function HotelDetail() {
 
           {/* Reviews */}
           <ReviewsSection data={reviews} />
+
+          {/* Traveller photo wall */}
+          <PhotoWall hotelId={hotel.id} />
         </div>
 
         {/* Booking widget */}

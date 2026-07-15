@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, HTTPException, Request, Response, Cookie, Header, Depends
+from fastapi import FastAPI, APIRouter, HTTPException, Request, Response, Cookie, Header, Depends, UploadFile, File, Form, Query
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -8,13 +8,16 @@ import hashlib
 import uuid
 import asyncio
 import logging
+import json
 import httpx
 import razorpay
+import requests
 import resend
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional
 from datetime import datetime, timezone, timedelta
+from emergentintegrations.llm.chat import LlmChat, UserMessage
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / ".env")
@@ -34,6 +37,8 @@ GOOGLE_MAPS_API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY", "placeholder_google_
 RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "re_placeholder_key")
 SENDER_EMAIL = os.environ.get("SENDER_EMAIL", "onboarding@resend.dev")
 FROM_NAME = os.environ.get("FROM_NAME", "Travelo")
+EMERGENT_LLM_KEY = os.environ.get("EMERGENT_LLM_KEY", "")
+APP_NAME = os.environ.get("APP_NAME", "travelo")
 
 RZP_IS_LIVE = not RZP_KEY_ID.startswith("rzp_test_placeholder") and not RZP_KEY_SECRET.startswith("placeholder")
 MAPS_IS_LIVE = not GOOGLE_MAPS_API_KEY.startswith("placeholder")
@@ -47,6 +52,70 @@ if RESEND_IS_LIVE:
     resend.api_key = RESEND_API_KEY
 
 EMERGENT_AUTH_URL = "https://demobackend.emergentagent.com/auth/v1/env/oauth/session-data"
+
+# ---------- Emergent Object Storage (with local fallback) ----------
+STORAGE_URL = "https://integrations.emergentagent.com/objstore/api/v1/storage"
+storage_key: Optional[str] = None
+LOCAL_UPLOADS_DIR = ROOT_DIR / "uploads"
+LOCAL_UPLOADS_DIR.mkdir(exist_ok=True)
+
+def init_storage() -> Optional[str]:
+    global storage_key
+    if storage_key:
+        return storage_key
+    if not EMERGENT_LLM_KEY:
+        return None
+    try:
+        r = requests.post(f"{STORAGE_URL}/init", json={"emergent_key": EMERGENT_LLM_KEY}, timeout=15)
+        r.raise_for_status()
+        storage_key = r.json()["storage_key"]
+        return storage_key
+    except Exception as e:
+        logging.info(f"Remote storage not available, using local fallback ({e})")
+        return None
+
+def put_object_sync(path: str, data: bytes, content_type: str) -> dict:
+    key = init_storage()
+    if key:
+        try:
+            r = requests.put(
+                f"{STORAGE_URL}/objects/{path}",
+                headers={"X-Storage-Key": key, "Content-Type": content_type},
+                data=data,
+                timeout=120,
+            )
+            r.raise_for_status()
+            return r.json()
+        except Exception as e:
+            logging.warning(f"Remote storage PUT failed, falling back local: {e}")
+    # local fallback
+    full = LOCAL_UPLOADS_DIR / path
+    full.parent.mkdir(parents=True, exist_ok=True)
+    full.write_bytes(data)
+    meta = LOCAL_UPLOADS_DIR / (path + ".ctype")
+    meta.parent.mkdir(parents=True, exist_ok=True)
+    meta.write_text(content_type)
+    return {"path": path, "size": len(data), "etag": "local"}
+
+def get_object_sync(path: str):
+    key = init_storage()
+    if key:
+        try:
+            r = requests.get(
+                f"{STORAGE_URL}/objects/{path}",
+                headers={"X-Storage-Key": key},
+                timeout=60,
+            )
+            r.raise_for_status()
+            return r.content, r.headers.get("Content-Type", "application/octet-stream")
+        except Exception as e:
+            logging.info(f"Remote storage GET missed, trying local ({e})")
+    full = LOCAL_UPLOADS_DIR / path
+    if not full.exists():
+        raise HTTPException(status_code=404, detail="File not found")
+    meta = LOCAL_UPLOADS_DIR / (path + ".ctype")
+    ctype = meta.read_text().strip() if meta.exists() else "application/octet-stream"
+    return full.read_bytes(), ctype
 
 # ---------- Curated inventory ----------
 DESTINATIONS = [
@@ -719,6 +788,209 @@ async def create_bundle(body: BundleCreate, user: dict = Depends(require_user)):
     }
 
 
+# ---------- Wishlist ----------
+class WishlistToggleIn(BaseModel):
+    hotel_id: str
+
+@api.get("/wishlist")
+async def get_wishlist(user: dict = Depends(require_user)):
+    rows = await db.wishlists.find({"user_id": user["user_id"]}, {"_id": 0}).sort("created_at", -1).to_list(200)
+    hotel_ids = [r["hotel_id"] for r in rows]
+    hotels = [h for h in HOTELS if h["id"] in hotel_ids]
+    # preserve wishlist order
+    order = {hid: i for i, hid in enumerate(hotel_ids)}
+    hotels.sort(key=lambda h: order.get(h["id"], 9999))
+    return {"hotel_ids": hotel_ids, "hotels": hotels}
+
+@api.post("/wishlist/toggle")
+async def toggle_wishlist(body: WishlistToggleIn, user: dict = Depends(require_user)):
+    h = next((x for x in HOTELS if x["id"] == body.hotel_id), None)
+    if not h:
+        raise HTTPException(status_code=404, detail="Hotel not found")
+    existing = await db.wishlists.find_one({"user_id": user["user_id"], "hotel_id": body.hotel_id})
+    if existing:
+        await db.wishlists.delete_one({"user_id": user["user_id"], "hotel_id": body.hotel_id})
+        return {"hotel_id": body.hotel_id, "in_wishlist": False}
+    await db.wishlists.insert_one({
+        "user_id": user["user_id"],
+        "hotel_id": body.hotel_id,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    })
+    return {"hotel_id": body.hotel_id, "in_wishlist": True}
+
+
+# ---------- File serving ----------
+@api.get("/files/{storage_path:path}")
+async def serve_file(storage_path: str):
+    record = await db.uploaded_files.find_one({"storage_path": storage_path, "is_deleted": False}, {"_id": 0})
+    if not record:
+        raise HTTPException(status_code=404, detail="File not found")
+    try:
+        data, ctype = await asyncio.to_thread(get_object_sync, storage_path)
+    except Exception as e:
+        logging.warning(f"File fetch failed: {e}")
+        raise HTTPException(status_code=404, detail="File unavailable")
+    return Response(content=data, media_type=record.get("content_type") or ctype)
+
+
+# ---------- Traveller photos (reviews wall) ----------
+ALLOWED_IMG_TYPES = {"image/jpeg", "image/jpg", "image/png", "image/webp"}
+MAX_UPLOAD_BYTES = 5 * 1024 * 1024  # 5MB
+
+@api.post("/hotels/{hotel_id}/photos")
+async def upload_hotel_photo(
+    hotel_id: str,
+    file: UploadFile = File(...),
+    caption: str = Form(""),
+    user: dict = Depends(require_user),
+):
+    h = next((x for x in HOTELS if x["id"] == hotel_id), None)
+    if not h:
+        raise HTTPException(status_code=404, detail="Hotel not found")
+    ctype = (file.content_type or "").lower()
+    if ctype not in ALLOWED_IMG_TYPES:
+        raise HTTPException(status_code=400, detail="Only JPG/PNG/WEBP images are allowed")
+    data = await file.read()
+    if len(data) > MAX_UPLOAD_BYTES:
+        raise HTTPException(status_code=413, detail="Image exceeds 5MB limit")
+    if len(data) == 0:
+        raise HTTPException(status_code=400, detail="Empty file")
+
+    # Require the user to have a paid booking that includes this hotel
+    paid = await db.bookings.find_one({
+        "user_id": user["user_id"],
+        "payment_status": "paid",
+        "$or": [
+            {"item_type": "hotel", "item_id": hotel_id},
+            {"is_bundle": True, "items.item_id": hotel_id, "items.item_type": "hotel"},
+        ],
+    })
+    if not paid:
+        raise HTTPException(status_code=403, detail="You can share photos only after a paid stay at this hotel")
+
+    ext = (file.filename or "img").rsplit(".", 1)[-1].lower() if "." in (file.filename or "") else "jpg"
+    if ext not in {"jpg", "jpeg", "png", "webp"}:
+        ext = "jpg"
+    storage_path = f"{APP_NAME}/hotel-photos/{hotel_id}/{user['user_id']}/{uuid.uuid4().hex}.{ext}"
+    try:
+        result = await asyncio.to_thread(put_object_sync, storage_path, data, ctype)
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.warning(f"Upload failed: {e}")
+        raise HTTPException(status_code=502, detail="Upload failed")
+
+    photo_id = f"ph_{uuid.uuid4().hex[:12]}"
+    doc = {
+        "photo_id": photo_id,
+        "hotel_id": hotel_id,
+        "user_id": user["user_id"],
+        "user_name": user.get("name") or user.get("email", "").split("@")[0],
+        "user_picture": user.get("picture") or "",
+        "storage_path": result["path"],
+        "caption": caption[:280],
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    }
+    await db.hotel_photos.insert_one(doc)
+    await db.uploaded_files.insert_one({
+        "storage_path": result["path"],
+        "content_type": ctype,
+        "size": result.get("size", len(data)),
+        "user_id": user["user_id"],
+        "is_deleted": False,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    })
+    doc.pop("_id", None)
+    doc["url"] = f"/api/files/{result['path']}"
+    return doc
+
+@api.get("/hotels/{hotel_id}/photos")
+async def list_hotel_photos(hotel_id: str):
+    rows = await db.hotel_photos.find({"hotel_id": hotel_id}, {"_id": 0}).sort("created_at", -1).to_list(60)
+    for r in rows:
+        r["url"] = f"/api/files/{r['storage_path']}"
+    return rows
+
+
+# ---------- AI Concierge ----------
+class ConciergeIn(BaseModel):
+    destination_slug: str
+    days: int = 3
+    interests: List[str] = []
+
+@api.post("/concierge/itinerary")
+async def concierge_itinerary(body: ConciergeIn):
+    dest = next((x for x in DESTINATIONS if x["slug"] == body.destination_slug), None)
+    if not dest:
+        raise HTTPException(status_code=404, detail="Destination not found")
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=503, detail="Concierge unavailable")
+
+    days = max(1, min(7, body.days))
+    interests = ", ".join([i.strip() for i in body.interests if i.strip()]) or "general sightseeing"
+
+    # Include nearby places as context
+    curated = CURATED_PLACES.get(body.destination_slug, [])
+    place_hints = ", ".join([p["name"] for p in curated[:6]]) or dest["name"]
+
+    system = (
+        "You are Travelo Concierge, a warm, world-class travel planner. "
+        "Always answer with pure JSON matching the requested schema. "
+        "Write in short evocative sentences. Prefer local, authentic experiences over tourist traps."
+    )
+    prompt = (
+        f"Plan a {days}-day itinerary for {dest['name']}, {dest['country']}.\n"
+        f"Traveller interests: {interests}.\n"
+        f"Consider these nearby highlights (feel free to include or improve on them): {place_hints}.\n"
+        "Return ONLY a JSON object of the exact shape:\n"
+        "{\n"
+        '  "summary": "1-2 sentence vibe of the whole trip",\n'
+        '  "days": [ {"day": 1, "theme": "...", "morning": "...", "afternoon": "...", "evening": "...", "tip": "..." } ]\n'
+        "}\n"
+        "No markdown. No commentary. Just JSON."
+    )
+
+    chat = LlmChat(
+        api_key=EMERGENT_LLM_KEY,
+        session_id=f"concierge_{body.destination_slug}_{uuid.uuid4().hex[:6]}",
+        system_message=system,
+    ).with_model("anthropic", "claude-sonnet-4-5-20250929")
+
+    try:
+        text = await chat.send_message(UserMessage(text=prompt))
+    except Exception as e:
+        logging.error(f"Concierge LLM failed: {e}")
+        raise HTTPException(status_code=502, detail="Concierge is resting — try again")
+
+    raw = text.strip()
+    # strip common markdown fences
+    if raw.startswith("```"):
+        raw = raw.strip("`")
+        if raw.lower().startswith("json"):
+            raw = raw[4:]
+    raw = raw.strip()
+    try:
+        data = json.loads(raw)
+    except Exception:
+        # last resort: find first {...} block
+        start = raw.find("{")
+        end = raw.rfind("}")
+        if start != -1 and end != -1:
+            try:
+                data = json.loads(raw[start:end + 1])
+            except Exception:
+                raise HTTPException(status_code=502, detail="Concierge returned invalid JSON")
+        else:
+            raise HTTPException(status_code=502, detail="Concierge returned invalid JSON")
+
+    return {
+        "destination": {"slug": dest["slug"], "name": dest["name"], "country": dest["country"]},
+        "days_requested": days,
+        "interests": [i.strip() for i in body.interests if i.strip()],
+        "itinerary": data,
+    }
+
+
 app.include_router(api)
 
 app.add_middleware(
@@ -731,6 +1003,17 @@ app.add_middleware(
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
+
+@app.on_event("startup")
+async def startup_init():
+    try:
+        key = await asyncio.to_thread(init_storage)
+        if key:
+            logger.info("Object storage initialized")
+        else:
+            logger.warning("Object storage not initialized (missing EMERGENT_LLM_KEY)")
+    except Exception as e:
+        logger.warning(f"Storage init error: {e}")
 
 @app.on_event("shutdown")
 async def shutdown_db():

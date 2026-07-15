@@ -20,6 +20,11 @@
 - Auth: session_token cookie (httpOnly, secure, sameSite=none) + Bearer fallback
 
 ## Implemented (2026-02)
+### Iteration 3
+- Wishlist Hearts on every hotel card + dedicated /wishlist page (WishlistContext)
+- Traveller Photo Uploads on hotel detail (POST /api/hotels/{id}/photos multipart with paid-booking gate; storage uses Emergent Object Storage w/ local filesystem fallback under /app/backend/uploads/; /api/files/{path} serves bytes)
+- AI Concierge on Destination page (POST /api/concierge/itinerary → Claude Sonnet 4.5 via emergentintegrations; JSON itinerary with days/theme/morning/afternoon/evening/tip)
+
 ### Iteration 2
 - Guest Reviews per hotel (/api/hotels/{id}/reviews with breakdown + 6 curated review cards + traveller photos)
 - Trip Bundles (/api/bookings/bundle — single checkout for hotel+car; MyBookings shows Bundle badge)

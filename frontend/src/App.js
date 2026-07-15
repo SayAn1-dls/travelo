@@ -2,6 +2,7 @@ import "@/App.css";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Toaster } from "sonner";
 import { AuthProvider } from "@/context/AuthContext";
+import { WishlistProvider } from "@/context/WishlistContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Landing from "@/pages/Landing";
@@ -13,6 +14,7 @@ import Destinations from "@/pages/Destinations";
 import Destination from "@/pages/Destination";
 import Checkout from "@/pages/Checkout";
 import MyBookings from "@/pages/MyBookings";
+import Wishlist from "@/pages/Wishlist";
 import AuthCallback from "@/pages/AuthCallback";
 
 function AppShell() {
@@ -35,6 +37,7 @@ function AppShell() {
           <Route path="/destinations/:slug" element={<Destination />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/my-bookings" element={<MyBookings />} />
+          <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/auth/callback" element={<AuthCallback />} />
         </Routes>
       </main>
@@ -47,8 +50,10 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <AppShell />
-        <Toaster position="top-right" theme="dark" richColors />
+        <WishlistProvider>
+          <AppShell />
+          <Toaster position="top-right" theme="dark" richColors />
+        </WishlistProvider>
       </AuthProvider>
     </BrowserRouter>
   );

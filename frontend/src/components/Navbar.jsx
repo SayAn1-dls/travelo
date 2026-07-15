@@ -34,6 +34,9 @@ export default function Navbar() {
           <Link to="/cars" data-testid="nav-cars" className={`hover:text-white transition-colors ${isActive("/cars") ? "text-white" : "text-white/60"}`}>Cars</Link>
           <Link to="/destinations" data-testid="nav-destinations" className={`hover:text-white transition-colors ${isActive("/destinations") ? "text-white" : "text-white/60"}`}>Destinations</Link>
           {user && (
+            <Link to="/wishlist" data-testid="nav-wishlist" className={`hover:text-white transition-colors ${isActive("/wishlist") ? "text-white" : "text-white/60"}`}>Wishlist</Link>
+          )}
+          {user && (
             <Link to="/my-bookings" data-testid="nav-bookings" className={`hover:text-white transition-colors ${isActive("/my-bookings") ? "text-white" : "text-white/60"}`}>My Trips</Link>
           )}
         </nav>
