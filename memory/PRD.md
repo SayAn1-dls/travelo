@@ -20,6 +20,12 @@
 - Auth: session_token cookie (httpOnly, secure, sameSite=none) + Bearer fallback
 
 ## Implemented (2026-02)
+### Iteration 2
+- Guest Reviews per hotel (/api/hotels/{id}/reviews with breakdown + 6 curated review cards + traveller photos)
+- Trip Bundles (/api/bookings/bundle — single checkout for hotel+car; MyBookings shows Bundle badge)
+- Email Confirmations via Resend (MOCK MODE with placeholder key — email prepared + saved to db.emails, /api/emails/mine to view; goes live when RESEND_API_KEY set to real re_ key)
+
+### Iteration 1
 - **Backend**
   - `/api/auth/session` (exchange session_id → cookie), `/api/auth/me`, `/api/auth/logout`
   - `/api/destinations`, `/api/destinations/{slug}` (6 destinations)

@@ -174,8 +174,8 @@ export default function Checkout() {
           </div>
         ))}
         <div className="border-t border-white/10 p-6 space-y-2 text-sm">
-          <div className="flex justify-between text-white/70"><span>Base fare</span><span>₹{(summary.total_amount - Math.round(summary.total_amount * 0.11)).toLocaleString("en-IN")}</span></div>
-          <div className="flex justify-between text-white/70"><span>Taxes & fees</span><span>₹{Math.round(summary.total_amount * 0.11).toLocaleString("en-IN")}</span></div>
+          <div className="flex justify-between text-white/70"><span>Base fare</span><span>₹{(summary.total_amount - Math.round(summary.total_amount * 0.12 / 1.12)).toLocaleString("en-IN")}</span></div>
+          <div className="flex justify-between text-white/70"><span>Taxes & fees</span><span>₹{Math.round(summary.total_amount * 0.12 / 1.12).toLocaleString("en-IN")}</span></div>
           <div className="flex justify-between font-display font-bold text-xl pt-3 border-t border-white/10 mt-3">
             <span>Total</span><span data-testid="checkout-total">₹{summary.total_amount.toLocaleString("en-IN")}</span>
           </div>
