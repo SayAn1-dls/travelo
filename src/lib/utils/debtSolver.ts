@@ -1,50 +1,42 @@
 import { Participant, DebtEdge } from '@/lib/types';
 
-export function computeNetBalances(participants: Participant[]): Map<string, number> {
+export const splitEqually = (amount: number, count: number): number => {
+  if (count === 0) return 0;
+  return Math.round((amount / count) * 100) / 100;
+};
+
+export const computeTotalPool = (participants: Participant[]): number =>
+  participants.reduce((sum, p) => sum + p.contribution, 0);
+
+export const computeNetBalances = (participants: Participant[]): Map<string, number> => {
   const balances = new Map<string, number>();
   for (const p of participants) {
-    balances.set(p.id, p.amountPaid - p.amountOwed);
+    balances.set(p.name, (p.amountPaid ?? 0) - (p.amountOwed ?? 0));
   }
   return balances;
-}
+};
 
-export function minimumCashFlow(participants: Participant[]): DebtEdge[] {
-  const balances = computeNetBalances(participants);
-  const result: DebtEdge[] = [];
-  const getMax = (map: Map<string, number>): [string, number] => {
-    let maxKey = '', maxVal = -Infinity;
-    for (const [k, v] of map) if (v > maxVal) { maxVal = v; maxKey = k; }
-    return [maxKey, maxVal];
-  };
-  const getMin = (map: Map<string, number>): [string, number] => {
-    let minKey = '', minVal = Infinity;
-    for (const [k, v] of map) if (v < minVal) { minVal = v; minKey = k; }
-    return [minKey, minVal];
-  };
-  const remaining = new Map(balances);
-  const EPSILON = 0.01;
-  for (let iter = 0; iter < participants.length * participants.length; iter++) {
-    const [creditor, credit] = getMax(remaining);
-    const [debtor, debt] = getMin(remaining);
-    if (Math.abs(credit) < EPSILON && Math.abs(debt) < EPSILON) break;
-    if (credit < EPSILON) break;
-    const settled = Math.min(credit, -debt);
-    remaining.set(creditor, credit - settled);
-    remaining.set(debtor, debt + settled);
-    result.push({
-      from: participants.find(p => p.id === debtor)?.name ?? debtor,
-      to: participants.find(p => p.id === creditor)?.name ?? creditor,
-      amount: Math.round(settled * 100) / 100,
-    });
+export const minimumCashFlow = (participants: Participant[]): DebtEdge[] => {
+  const netBalances = computeNetBalances(participants);
+  const creditors: { name: string; amount: number }[] = [];
+  const debtors: { name: string; amount: number }[] = [];
+
+  for (const [name, bal] of netBalances.entries()) {
+    if (bal > 0.01) creditors.push({ name, amount: bal });
+    else if (bal < -0.01) debtors.push({ name, amount: Math.abs(bal) });
   }
-  return result;
-}
 
-export function splitEqually(total: number, count: number): number {
-  if (count <= 0) return 0;
-  return Math.round((total / count) * 100) / 100;
-}
+  const edges: DebtEdge[] = [];
+  let ci = 0, di = 0;
 
-export function computeTotalPool(contributions: number[]): number {
-  return contributions.reduce((sum, c) => sum + c, 0);
-}
+  while (ci < creditors.length && di < debtors.length) {
+    const transfer = Math.min(creditors[ci].amount, debtors[di].amount);
+    edges.push({ from: debtors[di].name, to: creditors[ci].name, amount: Math.round(transfer * 100) / 100 });
+    creditors[ci].amount -= transfer;
+    debtors[di].amount -= transfer;
+    if (creditors[ci].amount < 0.01) ci++;
+    if (debtors[di].amount < 0.01) di++;
+  }
+
+  return edges;
+};

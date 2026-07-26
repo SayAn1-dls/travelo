@@ -4,7 +4,7 @@ export interface Participant {
   contribution: number;
   amountOwed: number;
   amountPaid: number;
-  status: 'settled' | 'owing' | 'owed';
+  status: 'owing' | 'settled' | 'creditor';
 }
 
 export interface Transaction {
@@ -36,7 +36,7 @@ export interface TripData {
   participants: Participant[];
   transactions: Transaction[];
   notifications: Notification[];
-  status: 'planning' | 'active' | 'completed';
+  status: 'active' | 'completed' | 'draft';
 }
 
 export interface DebtEdge {
