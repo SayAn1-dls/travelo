@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { MapPin, Bell, Plane } from 'lucide-react';
+import { MapPin, Bell, Menu, X, Plane } from 'lucide-react';
 
-interface HeaderProps { notificationCount?: number; }
+interface HeaderProps {
+  notificationCount?: number;
+}
 
 export default function Header({ notificationCount = 0 }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,58 +15,132 @@ export default function Header({ notificationCount = 0 }: HeaderProps) {
 
   const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/planning', label: 'Trip Planning' },
-    { href: '/ledger', label: 'My Trips' },
+    { href: '/planning', label: '🗺️ Plan Trip' },
+    { href: '/ledger', label: '💰 Ledger' },
   ];
 
   const isActive = (href: string) => pathname === href;
 
   return (
-    <header style={{ backgroundColor: 'rgba(255,255,255,0.92)', borderBottom: '1px solid var(--border-light)', position: 'sticky', top: 0, zIndex: 50, backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}>
+    <header style={{
+      backgroundColor: 'rgba(253,252,251,0.88)',
+      borderBottom: '1.5px solid rgba(139,92,246,0.10)',
+      position: 'sticky',
+      top: 0,
+      zIndex: 50,
+      backdropFilter: 'blur(20px)',
+      WebkitBackdropFilter: 'blur(20px)',
+    }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '72px' }}>
 
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-            <div style={{ width: '38px', height: '38px', background: 'linear-gradient(135deg, #0066FF 0%, #00B4D8 100%)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(0,102,255,0.30)' }}>
-              <Plane size={18} color="#FFFFFF" strokeWidth={2} />
+          {/* Logo */}
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
+            <div style={{
+              width: '42px', height: '42px',
+              background: 'linear-gradient(135deg, #8B5CF6 0%, #FF4D4D 100%)',
+              borderRadius: 'var(--r-pill)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              boxShadow: '0 4px 14px rgba(139,92,246,0.35)',
+              flexShrink: 0,
+            }}>
+              <Plane size={19} color="#FFFFFF" strokeWidth={2.2} />
             </div>
-            <span className="fredoka" style={{ fontSize: '24px', fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>travelo</span>
+            <span className="comfortaa" style={{
+              fontSize: '26px',
+              fontWeight: 700,
+              color: 'var(--ink)',
+              letterSpacing: '-0.01em',
+            }}>
+              travelo
+            </span>
           </Link>
 
+          {/* Desktop Nav */}
           <nav style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
             {navLinks.map(link => (
-              <Link key={link.href} href={link.href} style={{ padding: '8px 18px', borderRadius: 'var(--radius-pill)', fontSize: '14px', fontFamily: 'Plus Jakarta Sans, sans-serif', fontWeight: 600, color: isActive(link.href) ? '#0066FF' : 'var(--text-secondary)', backgroundColor: isActive(link.href) ? 'rgba(0,102,255,0.08)' : 'transparent', textDecoration: 'none', transition: 'all 0.15s ease', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                {link.label === 'Trip Planning' && <MapPin size={13} />}
+              <Link
+                key={link.href}
+                href={link.href}
+                style={{
+                  padding: '9px 20px',
+                  borderRadius: 'var(--r-pill)',
+                  fontSize: '14px',
+                  fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  fontWeight: 700,
+                  color: isActive(link.href) ? '#7C3AED' : 'var(--ink-soft)',
+                  backgroundColor: isActive(link.href) ? 'rgba(139,92,246,0.10)' : 'transparent',
+                  border: isActive(link.href) ? '1.5px solid rgba(139,92,246,0.20)' : '1.5px solid transparent',
+                  textDecoration: 'none',
+                  transition: 'all 0.18s ease',
+                  display: 'flex', alignItems: 'center', gap: '5px',
+                }}
+                onMouseEnter={e => {
+                  if (!isActive(link.href)) {
+                    (e.currentTarget as HTMLAnchorElement).style.color = '#7C3AED';
+                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = 'rgba(139,92,246,0.07)';
+                  }
+                }}
+                onMouseLeave={e => {
+                  if (!isActive(link.href)) {
+                    (e.currentTarget as HTMLAnchorElement).style.color = 'var(--ink-soft)';
+                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = 'transparent';
+                  }
+                }}
+              >
                 {link.label}
               </Link>
             ))}
           </nav>
 
+          {/* Right side */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            {/* Bell */}
             <Link href="/ledger" style={{ position: 'relative', textDecoration: 'none' }}>
-              <button style={{ width: '40px', height: '40px', borderRadius: '50%', border: '1.5px solid var(--border-light)', background: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)', transition: 'all 0.15s ease' }}>
+              <button
+                style={{
+                  width: '42px', height: '42px',
+                  borderRadius: 'var(--r-pill)',
+                  border: '1.5px solid var(--border-soft)',
+                  background: 'transparent',
+                  cursor: 'pointer',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: 'var(--ink-soft)',
+                  transition: 'all 0.18s ease',
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(139,92,246,0.35)';
+                  (e.currentTarget as HTMLButtonElement).style.color = '#7C3AED';
+                  (e.currentTarget as HTMLButtonElement).style.background = 'rgba(139,92,246,0.07)';
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--border-soft)';
+                  (e.currentTarget as HTMLButtonElement).style.color = 'var(--ink-soft)';
+                  (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+                }}
+              >
                 <Bell size={16} strokeWidth={1.8} />
-                {notificationCount > 0 && <span style={{ position: 'absolute', top: '7px', right: '7px', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#FF4F17', border: '2px solid #FFFFFF' }} />}
+                {notificationCount > 0 && (
+                  <span style={{
+                    position: 'absolute', top: '8px', right: '8px',
+                    width: '8px', height: '8px',
+                    borderRadius: '50%',
+                    backgroundColor: 'var(--coral)',
+                    border: '2px solid var(--canvas)',
+                  }} />
+                )}
               </button>
             </Link>
+
+            {/* New Trip CTA */}
             <Link href="/planning" style={{ textDecoration: 'none' }}>
-              <button className="btn-primary" style={{ padding: '9px 20px', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <button className="btn-violet" style={{ padding: '10px 22px', fontSize: '13px' }}>
                 <MapPin size={13} />
                 New Trip
               </button>
             </Link>
           </div>
         </div>
-
-        {menuOpen && (
-          <div style={{ paddingBottom: '16px', borderTop: '1px solid var(--border-light)', paddingTop: '14px' }}>
-            {navLinks.map(link => (
-              <Link key={link.href} href={link.href} onClick={() => setMenuOpen(false)} style={{ display: 'block', padding: '10px 14px', borderRadius: 'var(--radius-md)', fontSize: '14px', fontFamily: 'Plus Jakarta Sans, sans-serif', fontWeight: 600, color: isActive(link.href) ? '#0066FF' : 'var(--text-secondary)', backgroundColor: isActive(link.href) ? 'rgba(0,102,255,0.08)' : 'transparent', textDecoration: 'none', marginBottom: '4px' }}>
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        )}
       </div>
     </header>
   );
