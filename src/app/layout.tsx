@@ -2,15 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Travelo Executive | Group Travel Intelligence",
-  description: "Institutional-grade group travel logistics, capital management, and debt settlement platform.",
+  title: "Travelo — Group Travel Made Simple",
+  description: "Plan group trips, split expenses, and settle debts instantly with Travelo.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
