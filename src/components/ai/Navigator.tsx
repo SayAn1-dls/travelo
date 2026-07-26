@@ -97,6 +97,7 @@ export default function Navigator() {
 
   return (
     <>
+      {/* Slide-out Panel */}
       {open && (
         <div
           style={{
@@ -111,6 +112,7 @@ export default function Navigator() {
             animation: 'slideRight 0.28s cubic-bezier(0.4,0,0.2,1) forwards',
           }}
         >
+          {/* Header */}
           <div style={{
             padding: '16px 20px',
             borderBottom: '1px solid rgba(255,255,255,0.06)',
@@ -127,40 +129,122 @@ export default function Navigator() {
               <Bot size={17} color="#FFFFFF" strokeWidth={2} />
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontSize: '13px', fontWeight: 700, color: '#FFFFFF', fontFamily: 'Inter, sans-serif' }}>
+              <div style={{
+                fontSize: '13px', fontWeight: 700,
+                color: '#FFFFFF', fontFamily: 'Inter, sans-serif',
+              }}>
                 Navigator AI
               </div>
-              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.45)', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#22C55E', display: 'inline-block', flexShrink: 0 }} />
+              <div style={{
+                fontSize: '11px', color: 'rgba(255,255,255,0.45)',
+                display: 'flex', alignItems: 'center', gap: '5px',
+              }}>
+                <span style={{
+                  width: '6px', height: '6px', borderRadius: '50%',
+                  backgroundColor: '#22C55E', display: 'inline-block',
+                  flexShrink: 0,
+                }} />
                 Operational
               </div>
             </div>
             <div style={{ display: 'flex', gap: '6px' }}>
-              <button onClick={reset} style={{ width: '28px', height: '28px', border: '1px solid rgba(255,255,255,0.10)', borderRadius: '4px', background: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.45)', transition: 'all 0.15s ease' }} title="Reset session" onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = '#FFFFFF'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.25)'; }} onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.45)'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.10)'; }}>
+              <button
+                onClick={reset}
+                style={{
+                  width: '28px', height: '28px',
+                  border: '1px solid rgba(255,255,255,0.10)',
+                  borderRadius: '4px',
+                  background: 'transparent', cursor: 'pointer',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: 'rgba(255,255,255,0.45)',
+                  transition: 'all 0.15s ease',
+                }}
+                title="Reset session"
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLButtonElement).style.color = '#FFFFFF';
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.25)';
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.45)';
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.10)';
+                }}
+              >
                 <RotateCcw size={12} />
               </button>
-              <button onClick={() => setOpen(false)} style={{ width: '28px', height: '28px', border: '1px solid rgba(255,255,255,0.10)', borderRadius: '4px', background: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.45)', transition: 'all 0.15s ease' }} onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = '#FF4545'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,69,69,0.35)'; }} onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.45)'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.10)'; }}>
+              <button
+                onClick={() => setOpen(false)}
+                style={{
+                  width: '28px', height: '28px',
+                  border: '1px solid rgba(255,255,255,0.10)',
+                  borderRadius: '4px',
+                  background: 'transparent', cursor: 'pointer',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: 'rgba(255,255,255,0.45)',
+                  transition: 'all 0.15s ease',
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLButtonElement).style.color = '#FF4545';
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,69,69,0.35)';
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.45)';
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.10)';
+                }}
+              >
                 <X size={13} />
               </button>
             </div>
           </div>
 
-          <div style={{ flex: 1, overflowY: 'auto', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {/* Messages */}
+          <div style={{
+            flex: 1, overflowY: 'auto',
+            padding: '16px',
+            display: 'flex', flexDirection: 'column', gap: '12px',
+          }}>
             {messages.map(msg => (
-              <div key={msg.id} style={{ display: 'flex', flexDirection: 'column', alignItems: msg.role === 'user' ? 'flex-end' : 'flex-start', gap: '4px' }}>
-                <div className={msg.role === 'user' ? 'navigator-msg-user' : 'navigator-msg-ai'} style={{ whiteSpace: 'pre-line' }}>
+              <div
+                key={msg.id}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: msg.role === 'user' ? 'flex-end' : 'flex-start',
+                  gap: '4px',
+                }}
+              >
+                <div
+                  className={msg.role === 'user' ? 'navigator-msg-user' : 'navigator-msg-ai'}
+                  style={{ whiteSpace: 'pre-line' }}
+                >
                   {msg.content}
                 </div>
-                <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.25)', fontFamily: 'Inter, sans-serif' }}>
+                <span style={{
+                  fontSize: '10px',
+                  color: 'rgba(255,255,255,0.25)',
+                  fontFamily: 'Inter, sans-serif',
+                }}>
                   {formatTime(msg.ts)}
                 </span>
               </div>
             ))}
+
             {typing && (
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '4px' }}>
-                <div style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px 8px 8px 2px', padding: '12px 16px', display: 'flex', gap: '5px', alignItems: 'center' }}>
+                <div style={{
+                  background: 'rgba(255,255,255,0.06)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  borderRadius: '8px 8px 8px 2px',
+                  padding: '12px 16px',
+                  display: 'flex', gap: '5px', alignItems: 'center',
+                }}>
                   {[0, 1, 2].map(i => (
-                    <span key={i} style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'rgba(255,105,15,0.70)', display: 'inline-block', animation: `pulse 1.2s ease-in-out ${i * 0.2}s infinite` }} />
+                    <span key={i} style={{
+                      width: '5px', height: '5px',
+                      borderRadius: '50%',
+                      backgroundColor: 'rgba(255,105,15,0.70)',
+                      display: 'inline-block',
+                      animation: `pulse 1.2s ease-in-out ${i * 0.2}s infinite`,
+                    }} />
                   ))}
                 </div>
               </div>
@@ -168,26 +252,109 @@ export default function Navigator() {
             <div ref={bottomRef} />
           </div>
 
-          <div style={{ padding: '10px 16px 0', borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+          {/* Suggestions */}
+          <div style={{
+            padding: '10px 16px 0',
+            borderTop: '1px solid rgba(255,255,255,0.05)',
+            display: 'flex', flexWrap: 'wrap', gap: '6px',
+          }}>
             {SUGGESTIONS.map((s, i) => (
-              <button key={i} onClick={() => sendMessage(s)} style={{ padding: '4px 10px', border: '1px solid rgba(255,255,255,0.10)', borderRadius: '4px', background: 'rgba(255,255,255,0.04)', color: 'rgba(255,255,255,0.55)', fontSize: '11px', fontFamily: 'Inter, sans-serif', cursor: 'pointer', transition: 'all 0.15s ease', fontWeight: 400 }} onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,105,15,0.40)'; (e.currentTarget as HTMLButtonElement).style.color = 'var(--orange)'; (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,105,15,0.07)'; }} onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.10)'; (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.55)'; (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.04)'; }}>
+              <button
+                key={i}
+                onClick={() => sendMessage(s)}
+                style={{
+                  padding: '4px 10px',
+                  border: '1px solid rgba(255,255,255,0.10)',
+                  borderRadius: '4px',
+                  background: 'rgba(255,255,255,0.04)',
+                  color: 'rgba(255,255,255,0.55)',
+                  fontSize: '11px', fontFamily: 'Inter, sans-serif',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                  fontWeight: 400,
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,105,15,0.40)';
+                  (e.currentTarget as HTMLButtonElement).style.color = 'var(--orange)';
+                  (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,105,15,0.07)';
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.10)';
+                  (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.55)';
+                  (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.04)';
+                }}
+              >
                 {s}
               </button>
             ))}
           </div>
 
-          <div style={{ padding: '12px 16px', borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', gap: '8px', alignItems: 'center', flexShrink: 0 }}>
-            <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && !e.shiftKey && sendMessage()} placeholder="Ask Navigator AI..." style={{ flex: 1, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.10)', borderRadius: '6px', color: '#FFFFFF', fontFamily: 'Inter, sans-serif', fontSize: '13px', padding: '9px 14px', outline: 'none', transition: 'border-color 0.15s ease' }} onFocus={e => (e.currentTarget as HTMLInputElement).style.borderColor = 'rgba(255,105,15,0.45)'} onBlur={e => (e.currentTarget as HTMLInputElement).style.borderColor = 'rgba(255,255,255,0.10)'} />
-            <button onClick={() => sendMessage()} disabled={!input.trim()} style={{ width: '36px', height: '36px', background: input.trim() ? 'var(--orange)' : 'rgba(255,255,255,0.06)', border: 'none', borderRadius: '6px', cursor: input.trim() ? 'pointer' : 'not-allowed', display: 'flex', alignItems: 'center', justifyContent: 'center', color: input.trim() ? '#FFFFFF' : 'rgba(255,255,255,0.25)', transition: 'all 0.15s ease', flexShrink: 0 }}>
+          {/* Input */}
+          <div style={{
+            padding: '12px 16px',
+            borderTop: '1px solid rgba(255,255,255,0.06)',
+            display: 'flex', gap: '8px', alignItems: 'center',
+            flexShrink: 0,
+          }}>
+            <input
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && !e.shiftKey && sendMessage()}
+              placeholder="Ask Navigator AI..."
+              style={{
+                flex: 1,
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.10)',
+                borderRadius: '6px',
+                color: '#FFFFFF',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '13px',
+                padding: '9px 14px',
+                outline: 'none',
+                transition: 'border-color 0.15s ease',
+              }}
+              onFocus={e => (e.currentTarget as HTMLInputElement).style.borderColor = 'rgba(255,105,15,0.45)'}
+              onBlur={e => (e.currentTarget as HTMLInputElement).style.borderColor = 'rgba(255,255,255,0.10)'}
+            />
+            <button
+              onClick={() => sendMessage()}
+              disabled={!input.trim()}
+              style={{
+                width: '36px', height: '36px',
+                background: input.trim() ? 'var(--orange)' : 'rgba(255,255,255,0.06)',
+                border: 'none',
+                borderRadius: '6px',
+                cursor: input.trim() ? 'pointer' : 'not-allowed',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: input.trim() ? '#FFFFFF' : 'rgba(255,255,255,0.25)',
+                transition: 'all 0.15s ease',
+                flexShrink: 0,
+              }}
+            >
               <Send size={14} />
             </button>
           </div>
         </div>
       )}
 
+      {/* FAB Toggle */}
       <button
         onClick={() => setOpen(o => !o)}
-        style={{ position: 'fixed', bottom: '28px', right: open ? '396px' : '28px', width: '52px', height: '52px', background: open ? 'rgba(255,255,255,0.10)' : 'var(--navy)', border: open ? '1px solid rgba(255,255,255,0.20)' : '2px solid var(--orange)', borderRadius: '10px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: open ? 'rgba(255,255,255,0.75)' : '#FFFFFF', zIndex: 201, boxShadow: open ? 'none' : '0 4px 20px rgba(255,105,15,0.35)', transition: 'all 0.25s cubic-bezier(0.4,0,0.2,1)' }}
+        style={{
+          position: 'fixed',
+          bottom: '28px',
+          right: open ? '396px' : '28px',
+          width: '52px', height: '52px',
+          background: open ? 'rgba(255,255,255,0.10)' : 'var(--navy)',
+          border: open ? '1px solid rgba(255,255,255,0.20)' : '2px solid var(--orange)',
+          borderRadius: '10px',
+          cursor: 'pointer',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          color: open ? 'rgba(255,255,255,0.75)' : '#FFFFFF',
+          zIndex: 201,
+          boxShadow: open ? 'none' : '0 4px 20px rgba(255,105,15,0.35)',
+          transition: 'all 0.25s cubic-bezier(0.4,0,0.2,1)',
+        }}
         title={open ? 'Close Navigator' : 'Open Navigator AI'}
       >
         {open ? <ChevronDown size={20} /> : <Bot size={22} />}
