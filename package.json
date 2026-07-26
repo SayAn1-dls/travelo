@@ -1,1 +1,30 @@
-ewogICJuYW1lIjogInRyYXZlbG8taW5zdGl0dXRpb25hbC1zY2FmZm9sZCIsCiAgInZlcnNpb24iOiAiMC4xLjAiLAogICJwcml2YXRlIjogdHJ1ZSwKICAic2NyaXB0cyI6IHsKICAgICJkZXYiOiAibmV4dCBkZXYiLAogICAgImJ1aWxkIjogIm5leHQgYnVpbGQiLAogICAgInN0YXJ0IjogIm5leHQgc3RhcnQiLAogICAgImxpbnQiOiAibmV4dCBsaW50IgogIH0sCiAgImRlcGVuZGVuY2llcyI6IHsKICAgICJjbHN4IjogIl4yLjEuMSIsCiAgICAiZGF0ZS1mbnMiOiAiXjQuNC4wIiwKICAgICJsdWNpZGUtcmVhY3QiOiAiXjAuNDc0LjAiLAogICAgIm5leHQiOiAiMTUuMS42IiwKICAgICJyZWFjdCI6ICIxOS4wLjAiLAogICAgInJlYWN0LWRvbSI6ICIxOS4wLjAiLAogICAgInRhaWx3aW5kLW1lcmdlIjogIl4zLjAuMSIKICB9LAogICJkZXZEZXBlbmRlbmNpZXMiOiB7CiAgICAiQHRhaWx3aW5kY3NzL3Bvc3Rjc3MiOiAiXjQuMC4wIiwKICAgICJAdHlwZXMvbm9kZSI6ICJeMjAiLAogICAgIkB0eXBlcy9yZWFjdCI6ICJeMTkiLAogICAgIkB0eXBlcy9yZWFjdC1kb20iOiAiXjE5IiwKICAgICJlc2xpbnQiOiAiXjkiLAogICAgImVzbGludC1jb25maWctbmV4dCI6ICIxNS4xLjYiLAogICAgInRhaWx3aW5kY3NzIjogIl40LjAuMCIsCiAgICAidHlwZXNjcmlwdCI6ICJeNSIKICB9Cn0K
+{
+  "name": "travelo-institutional-scaffold",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "date-fns": "^4.4.0",
+    "lucide-react": "^0.474.0",
+    "next": "15.1.6",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "tailwind-merge": "^3.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.1.6",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5"
+  }
+}
