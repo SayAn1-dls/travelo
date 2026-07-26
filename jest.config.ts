@@ -1,10 +1,16 @@
 import type { Config } from 'jest';
+import nextJest from 'next/jest';
+
+const createJestConfig = nextJest({ dir: './' });
 
 const config: Config = {
   testEnvironment: 'node',
-  transform: { '^.+\\.tsx?$': ['ts-jest', { tsconfig: { jsx: 'react-jsx' } }] },
-  moduleNameMapper: { '^@/(.*)$': '<rootDir>/src/$1' },
-  testMatch: ['**/__tests__/**/*.test.ts', '**/__tests__/**/*.test.tsx'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
+  transform: {
+    '^.+\\.(ts|tsx)$': ['ts-jest', { tsconfig: { jsx: 'react' } }],
+  },
 };
 
-export default config;
+export default createJestConfig(config);

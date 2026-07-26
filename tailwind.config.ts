@@ -1,16 +1,24 @@
-import type { Config } from 'tailwindcss';
+import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: [
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
     extend: {
       colors: {
-        brand: { blue: '#0066FF', orange: '#FF4F17', teal: '#00B4D8', green: '#00C48C' },
+        'travelo': {
+          parchment: '#FDFCFB',
+          ink: '#1A1814',
+          platinum: '#8E8680',
+          gold: '#C9A96E',
+          midnight: '#0F0E0C',
+        }
       },
-      borderRadius: { pill: '100px', '4xl': '32px' },
       fontFamily: {
-        fredoka: ['Fredoka', 'Plus Jakarta Sans', 'sans-serif'],
-        jakarta: ['Plus Jakarta Sans', 'sans-serif'],
+        garamond: ['EB Garamond', 'Georgia', 'serif'],
         inter: ['Inter', 'sans-serif'],
       },
     },
