@@ -1,1 +1,74 @@
-IyDinIjvuI8gVFJBVkVMTzogVEhFIElOU1RJVFVUSU9OQUwgRVhQRURJVElPTiBDT1JFCgo+ICoqU3RvcCBQbGFubmluZy4gU3RhcnQgT3JjaGVzdHJhdGluZy4qKgoKWyFbVmVyY2VsIERlcGxveW1lbnRdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2UvVmVyY2VsLUxpdmUtYmxhY2s/c3R5bGU9Zm9yLXRoZS1iYWRnZSZsb2dvPXZlcmNlbCldKGh0dHBzOi8vdHJhdmVsby1pbnN0aXR1dGlvbmFsLXNjYWZmb2xkLnZlcmNlbC5hcHAvKQpbIVtOZXh0LmpzIDE1XShodHRwczovL2ltZy5zaGllbGRzLmlvL2JhZGdlL05leHQuanMtMTUtMDAwP3N0eWxlPWZvci10aGUtYmFkZ2UmbG9nbz1uZXh0LmpzKV0oaHR0cHM6Ly9uZXh0anMub3JnLykKWyFbUmVhY3QgMTldKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2UvUmVhY3QtMTktYmx1ZT9zdHlsZT1mb3ItdGhlLWJhZGdlJmxvZ289cmVhY3QpXShodHRwczovL3JlYWN0LmRldi8pCgotLS0KCiMjIPCfl7rvuI8gTUlTU0lPTiBQUk9GSUxFCgpUcmF2ZWxvIGlzIG5vdCBhICJ0cmlwIHBsYW5uZXIuIiBJdCBpcyBhICoqaGlnaC1maWRlbGl0eSBleHBlZGl0aW9uIGVjb3N5c3RlbSoqIGRlc2lnbmVkIGZvciBlbGl0ZSBncm91cCBsb2dpc3RpY3MsIGZvcmVuc2ljIHNwZW5kaW5nIGF1ZGl0cywgYW5kIGdsb2JhbCBtdWx0aS1tb2RhbCBib29raW5ncy4gQnVpbHQgZm9yIHRob3NlIHdobyBkZW1hbmQgaW5zdGl0dXRpb25hbC10aWVyIHByZWNpc2lvbiB3aGlsZSBvbiB0aGUgbW92ZS4KCi0tLQoKIyMg8J+boO+4jyBPUEVSQVRJT05BTCBNT0RVTEVTCgojIyMg8J+bqyAwMS4gR0xPQkFMIEFHR1JFR0FUSU9OIEVOR0lORQpVbmlmaWVkIHNlYXJjaCBjb3JlIGZvciAqKkZsaWdodHMsIEhvdGVscywgVHJhaW5zLCBhbmQgQ2FicyoqLgotIFJlYWwtdGltZSBwcm92aWRlciBtYXBwaW5nロットICBTZWN1cmUgUmVkaXJlY3Rpb24gTGF5ZXIgdG8gb2ZmaWNpYWwgYm9va2luZyBwb3J0YWxzIChJbmRpR28sIEFpckluZGlhLCBUYWogSG90ZWxzLCBldGMuKS4KLSAiU2FmZSBBUEkiIGFyY2hpdGVjdHVyZSB0byBwcmV2ZW50IG1pZC10cmFuc2l0IGRhdGEgbGVha3MuCgojIyMg8J+SuCAwMi4gRk9SRU5TSUMgTEVER0VSIChNSU4tQ0FTSC1GTE9XKQpHcm91cCBidWRnZXRpbmcgcG93ZXJlZCBieSBhZHZhbmNlZCBncmFwaCB0aGVvcnkuCi0gQXV0b21hdGljIGRlYnQgcmVzb2x1dGlvbiB2aWEgYSBjdXN0b20gKipNaW4tQ2FzaC1GbG93IEFsZ29yaXRobSoqLgotIFJlYWwtdGltZSBjYXBpdGFsIG91dGZsb3cgdHJhY2tpbmcuCi0gSW5zdGFudCBVUEkgc2V0dGxlbWVudCBpbnRlZ3JhdGlvbi4KCiMjIyDwn5OFIDAzLiBFWFBFRElUSU9OIFNUUkFURUdJU1QKRHluYW1pYywgY29sbGFib3JhdGl2ZSBpdGluZXJhcnkgYnVpbGRlci4KLSBEYXktd2lzZSBhY3Rpdml0eSBzY2hlZHVsaW5nLgotIFJlYWwtdGltZSBzeW5jIGZvciBncm91cCBjb29yZGluYXRpb24uCi0gUHJvZHVjdGlvbi1saW5rIGdlbmVyYXRpb24gZm9yICJHcm91bmQgQ29udHJvbCIgc2hhcmluZy4KCiMjIyDwn5GkIDA0LiBJREVOVElUWSBMQVlFUgpJbnN0aXR1dGlvbmFsLWdyYWRlIGF1dGhlbnRpY2F0aW9uIFVJLgotIFNwZWNpYWxpemVkICoqQWRtaW4gU2Vzc2lvbnMqKiBmb3IgZXhwZWRpdGlvbiBsZWFkZXJzLgotIEVuY3J5cHRlZCB1c2VyIHByb2ZpbGUgcGVyc2lzdGVuY2UuCgotLS0KCiMjIPCfj5fvuI8gVEVDSE5JQ0FMIFNUQUNLCgp8IENPTVBPTkVOVCB8IFNQRUNJRklDQVRJT04gfAp8IDotLS0gfCA6LS0tIHwKfCAqKkZyYW1ld29yayoqIHwgTmV4dC5qcyAxNSAoVHVyYm9wYWNrIFBvd2VyZWQpIHwKfCAqKlVJIExpYnJhcnkqKiB8IFJlYWN0IDE5ICsgRnJhbWVyIE1vdGlvbiB8CnwgKipJY29ub2dyYXBoeSoqIHwgTHVjaWRlIFJlYWN0IChIaWdoLUZpZGVsaXR5KSB8CnwgKipTdHlsaW5nKiogfCBUYWlsd2luZCBDU1MgdjQgKEN1c3RvbSBJbnN0aXR1dGlvbmFsIFBhbGV0dGUpIHwKfCAqKiBBbGdvcml0aG0qKiB8IEdyYXBoLWJhc2VkIE1pbi1DYXNoLUZsb3cgUmVzb2x1dGlvbiB8CgotLS0KCiMjIPCfmoAgR1JPVU5EIENPTlRST0wgU0VUVVAKCmBgYGJhc2gKIyAxLiBDbG9uZSB0aGUgY29yZQpnaXQgY2xvbmUgaHR0cHM6Ly9naXRodWIuY29tL1NheUFuMS1kbHMvdHJhdmVsby5naXQKCiMgMi4gSW5pdGlhbGl6ZSBkZXBlbmRlbmNpZXMKbnBtIGluc3RhbGwKCiMgMy4gTGF1bmNoIExvY2FsIENvbW1hbmQgQ2VudGVyCm5wbSBydW4gZGV2CmBgYAoKLS0tCgojIyDwn5OTIFNUQVRVUzogT1BFUkFUSU9OQUwKRGVwbG95ZWQgYXQ6IFt0cmF2ZWxvLWluc3RJVHV0aW9uYWwtc2NhZmZvbGQudmVyY2VsLmFwcF0oaHR0cHM6Ly90cmF2ZWxvLWluc3RpdHV0aW9uYWwtc2NhZmZvbGQudmVyY2VsLmFwcC8pCgoqKirCdWlsdCBieSBTYXlhbiB8IFBvd2VyZWQgYnkgSmFydmlzLioqCgotLS0K
+# ✈️ TRAVELO: THE INSTITUTIONAL EXPEDITION HUB
+
+> **Orchestrate. Don't Just Plan.**
+
+[![Vercel Deployment](https://images.shields.io/badge/Vercel-Live-black?style=for-the-badge&logo=vercel)](https://travelo-institutional-scaffold.vercel.app/)
+[![Build Status](https://images.shields.io/badge/Build-Operational-emerald?style=for-the-badge)](https://travelo-institutional-scaffold.vercel.app/)
+
+---
+
+## 🗺️ MISSION PROFILE
+
+Travelo is a **high-fidelity expedition ecosystem** engineered for elite group logistics, forensic spending audits, and global multi-modal search. This isn't a "trip planner"—it's a command center for those who demand institutional precision while navigation the globe.
+
+---
+
+## 🛠️ OPERATIONAL MODULES
+
+### 🛫 01. GLOBAL AGGREGATION ENGINE
+Unified multi-modal search core for **Flights, Hotels, Trains, and Cabs**.
+- **Provider Mapping**: Real-time logic for global carriers.
+- **Secure Redirection**: Hardened hand-off to official booking portals (IndiGo, Air India, Taj Hotels, IRCTC).
+- **Safe API**: Production-grade architecture for sensitive transit data.
+
+### 💸 02. FORENSIC LEDGER (MIN-CASH-FLOW)
+Budgeting powered by discrete mathematics and graph theory.
+- **Optimal Resolution**: Automatic debt clearing via custom **Min-Cash-Flow Algorithm**.
+- **Capital Tracking**: Real-time visibility into pooled group funds.
+- **UPI Settlement**: Integrated one-click resolution UI.
+
+### 📅 03. EXPEDITION STRATEGIST
+Dynamic, high-energy collaborative itinerary builder.
+- **Time-Locked Logic**: Day-wise activity scheduling with precision.
+- **Group Sync**: Real-time operational coordination.
+- **Ground Control**: Generate shareable production links for the entire crew.
+
+### 👤 04. IDENTITY CORE
+Institutional-tier authentication interface.
+- **Admin Session**: Elite access for expedition leaders (Sayan/ADMIN).
+- **Session Persistence**: Encrypted state management for multi-device synchronization.
+
+---
+
+## 🏗️ TECHNICAL STACK
+
+| LAYER | SPECIFICATION |
+| :--- | :--- |
+| **Engine** | Next.js 15+ (Turbopack Optimized) |
+| **Core** | React 19 + Framer Motion (Liquid UI) |
+| **Logic** | O(V+E) Graph Settlement Algorithm |
+| **Styling** | Tailwind CSS v4 (Custom Institutional Theme) |
+
+---
+
+## 🚀 GROUND CONTROL INITIALIZATION
+
+```bash
+# Clone the repository
+git clone https://github.com/SayAn1-dls/travelo.git
+
+# Install operational dependencies
+npm install
+
+# Boot the local command center
+npm run dev
+```
+
+---
+
+## 📡 STATUS: OPERATIONAL
+Live Link: [travelo-institutional-scaffold.vercel.app](https://travelo-institutional-scaffold.vercel.app/)
+
+**Built by Sayan | Powered by Jarvis.**
+
+---
