@@ -1,1 +1,59 @@
-J3VzZSBjbGllbnQnOwoKaW1wb3J0IHsgdXNlU3RhdGUgfSBmcm9tICdyZWFjdCc7CmltcG9ydCBMaW5rIGZyb20gJ25leHQvbGluayc7CmltcG9ydCB7IHVzZVBhdGhuYW1lIH0gZnJvbSAnbmV4dC9uYXZpZ2F0b3InOwppbXBvcnQgeyBQbGFuZSwgSG90ZWwsIENhciwgVHJhaW5Gcm9udCwgQmVsbCwgVXNlciwgTWVudSwgWCB9IGZyb20gJ2x1Y2lkZS1yZWFjdCc7CgpleHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBIZWFkZXIoKSB7CiAgY29uc3QgW21lbnVPcGVuLCBzZXRNZW51T3Blbl0gPSB1c2VTdGF0ZShmYWxzZSk7CiAgY29uc3QgcGF0aG5hbWUgPSB1c2VQYXRobmFtZSgpOwoKICBjb25zdCBuYXZMaW5rcyA9IFsKICAgIHsgbGFiZWw6ICdGbGlnaHRzJywgaHJlZjogJy8/dGFiPWZsaWdodHMnLCBpY29uOiBQbGFuZSB9LAogICAgeyBsYWJlbDogJ0hvdGVscycsICBocmVmOiAnLz90YWI9aG90ZWxzJywgIGljb246IEhvdGVsIH0sCiAgICB7IGxhYmVsOiAnVHJhaW5zJywgIGhyZWY6ICcvP3RhYj10cmFpbnMnLCAgaWNvbjogVHJhaW5Gcm9udCB9LAogICAgeyBsYWJlbDogJ0NhYnMnLCAgICBocmVmOiAnLz90YWI9Y2FicycsICAgIGljb246IENhciB9LAogIF07CgogIHJldHVybiAoCiAgICA8aGVhZGVyIGNsYXNzTmFtZT0ic3RpY2t5IHRvcC0wIHotNTAgYmctd2hpdGUgYm9yZGVyLWIgYm9yZGVyLXNsYXRlLTIwMCBzaGFkb3ctc20iPgogICAgICA8ZGl2IGNsYXNzTmFtZT0ibWF4LXctN3hsIG14LWF1dG8gcHgtNCBzbTpweC02Ij4KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBqdXN0aWZ5LWJldHdlZW4gaXRlbXMtY2VudGVyIGgtMTYgc206aC0yMCI+CiAgICAgICAgICAKICAgICAgICAgIHsvKiBMb2dvICovfQogICAgICAgICAgPExpbmsgocmVmPSIvIiBjbGFzc05hbWU9ImZsZXggaXRlbXMtY2VudGVyIGdhcC0yIGdyb3VwIj4KICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9InctMTAgaC0xMCBiZy1bI0ZGNjkwRl0gcm91bmRlZC14bCBmbGV4IGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWNlbnRlciBzaGFkb3ctb3JhbmNlLTIwMCBncm91cC1ob3ZlcjpzY2FsZS0xMDUgdHJhbnNpdGlvbi10cmFuc2Zvcm0gZHVyYXRpb24tMjAwIj4KICAgICAgICAgICAgICA8UGxhbmUgc2l6ZT17MjR9IGNsYXNzTmFtZT0idGV4dC13aGl0ZSIgLz4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0idGV4dC0yeGwgZm9udC1ibGFjayB0cmFja2luZy10aWdodGVyIHRleHQtWzE5MjAyNF0iPgogICAgICAgICAgICAgIHRyYXZlbG88c3BhbiBjbGFzc05hbWU9InRleHQtW0ZGNjkwRl0iPi48L3NwYW4+CiAgICAgICAgICAgIDwvc3Bhbj4KICAgICAgICAgIDwvTExpbms+CgogICAgICAgICAgey8qIERlc2t0b3AgTmF2aWdhdG9yICovfQogICAgICAgICAgPG5hdiBjbGFzc05hbWU9ImhpZGRlbiBsZzpmbGV4IGl0ZW1zLWNlbnRlciBnYXAtMSI+CiAgICAgICAgICAgIHtuYXZMaW5rcy5tYXAoKGl0ZW0pID0+IHsKICAgICAgICAgICAgICBjb25zdCBJY29uID0gaXRlbS5pY29uOwogICAgICAgICAgICAgIHJldHVybiAoCiAgICAgICAgICAgICAgICA8TGluayAKICAgICAgICAgICAgICAgICAga2V5PXtpdGVtLmxhYmVsfSAKICAgICAgICAgICAgICAgICAgaHJlZj17aXRlbS5ocmVmfSAKICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPSJweC00IHB5LTIgcm91bmRlZC14bCB0ZXh0LXNtIGZvbnQtYm9sZCB0ZXh0LXNsYXRlLTYwMCBob3Zlcjp0ZXh0LVsjMTkyMDI0XSBob3ZlcjpiZy1zbGF0ZS01MCB0cmFuc2l0aW9uLWFsbCBkdXJhdGlvbi0yMDAgZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTIiCiAgICAgICAgICAgICAgICA+CiAgICAgICAgICAgICAgICAgIDxJY29uIHNpemU9ezE2fSAvPgogICAgICAgICAgICAgICAgICB7aXRlbS5sYWJlbH0KICAgICAgICAgICAgICAgIDwvTExpbms+CiAgICAgICAgICAgICAgKTsKICAgICAgICAgICAgfSl9CiAgICAgICAgICA8L25hdj4KCiAgICAgICAgICB7LyogUmlnaHQgU2VjdGlvbiAqL30KICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGl0ZW1zLWNlbnRlciBnYXAtMyI+CiAgICAgICAgICAgIDxidXR0b24gY2xhc3NOYW1lPSJyZWxhdGl2ZSBwLTIgdGV4dC1zbGF0ZS00MDAgaG92ZXI6dGV4dC1bIzE5MjAyNF0gdHJhbnNpdGlvbi1jb2xvcnMiPgogICAgICAgICAgICAgIDxCZWxsIHNpemU9ezIwfSAvPgogICAgICAgICAgICA8L2J1dHRvbj4KICAgICAgICAgICAgCiAgICAgICAgICAgIDxidXR0b24gY2xhc3NOYW1lPSJoaWRkZW4gc206ZmxleCBpdGVtcy1jZW50ZXI gZ2FwLTIgcHgtNSBweS0yLjUgYmctWzE5MjAyNF0gdGV4dC13aGl0ZSByb3VuZGVkLXhsIHRleHgtc20gZm9udC1ib2xkIGhvdmVyOmJnLWJsYWNrIHRyYW5zaXRpb24tYWxsIHNoYWRvdy1tZCBhY3RpdmU6c2NhbGUtOTUiPgogICAgICAgICAgICAgIDxVc2VyIHNpemU9ezE2fSAvPgogICAgICAgICAgICAgIEFjY291bnQKICAgICAgICAgICAgPC9idXR0b24+CgogICAgICAgICAgICB7LyogTW9iaWxlIE1lbnUgQnV0dG9uICovfQogICAgICAgICAgICA8YnV0dG9uIAogICAgICAgICAgICAgIGNsYXNzTmFtZT0ibGc6aGlkZGVuIHAtMiB0ZXh0LXNsYXRlLTYwMCIKICAgICAgICAgICAgICBvbkNsaWNrPXsoKSA9PiBzZXRNZW51T3BlbighbWVudU9wZW4pfQogICAgICAgICAgICA+CiAgICAgICAgICAgICAge21lbnVPcGVuID8gPFggc2l6ZT17MjR9IC8+IDogPE1lbnUgc2l6ZT17MjR9IC8+fQogICAgICAgICAgICA8L2J1dHRvbj4KICAgICAgICAgIDwvZGl2PgogICAgICAgIDwvZGl2PgogICAgICA8L2Rpdj4KICAgIDwvaGVhZGVyPgogICk7Cn0=
+'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Plane, LogOut, Shield } from 'lucide-react';
+
+export default function Header() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const pathname = usePathname();
+
+  const navLinks = [
+    { label: 'Flights', href: '/flights' },
+    { label: 'Hotels',  href: '/hotels' },
+    { label: 'Trains',  href: '/trains' },
+    { label: 'Cabs',    href: '/cabs' },
+    { label: 'Planner', href: '/planning' },
+    { label: 'Ledger',  href: '/ledger' },
+  ];
+
+  return (
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-slate-200">
+      <div className="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="w-10 h-10 bg-[#FF690F] rounded-2xl flex items-center justify-center shadow-lg shadow-orange-200 group-hover:scale-110 transition-all">
+            <Plane size={24} color="white" />
+          </div>
+          <span className="text-2xl font-black text-[#192024] tracking-tighter">travelo.</span>
+        </Link>
+
+        <nav className="hidden lg:flex items-center gap-3">
+          {navLinks.map((l) => (
+            <Link key={l.label} href={l.href} className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${pathname === l.href ? 'text-[#FF690F] bg-orange-50' : 'text-slate-400 hover:text-[#192024]'}`}>
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-4">
+          {!isLoggedIn ? (
+            <button onClick={() => setIsLoggedIn(true)} className="bg-[#192024] text-white px-6 py-3 rounded-2xl text-sm font-black hover:bg-black shadow-lg shadow-slate-200 transition-all active:scale-95">
+              Login
+            </button>
+          ) : (
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-2xl border border-slate-200">
+                <Shield size={16} className="text-emerald-500" />
+                <span className="text-xs font-black text-[#192024]">Sayan (ADMIN)</span>
+              </div>
+              <button onClick={() => setIsLoggedIn(false)} className="text-slate-300 hover:text-red-500 transition-colors">
+                <LogOut size={20} />
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </header>
+  );
+}

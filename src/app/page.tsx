@@ -1,1 +1,148 @@
-J3VzZSBjbGllbnQnOwoKaW1wb3J0IHsgdXNlU3RhdGUgfSBmcm9tICdyZWFjdCc7CmltcG9ydCB7IHVzZVJvdXRlciB9IGZyb20gJ25leHQvbmF2aWdhdGlvbic7CmltcG9ydCBIZWFkZXIgZnJvbSAnQC9jb21wb25lbnRzL2xheW91dC9IZWFkZXInOwppbXBvcnQgTmF2aWdhdG9yIGZyb20gJ0AvY29tcG9uZW50cy9haS9OYXZpZ2F0b3InOwppbXBvcnQgeyBQbGFuZSwgSG90ZWwsIENhciwgVHJhaW5Gcm9udCwgU2VhcmNoLCBNYXBQaW4sIENhbGVuZGFyLCBVc2VycywgQXJyb3dSaWdodCwgU3RhciwgU2hpZWxkQ2hlY2ssIEdsb2JlLCBaYXAsIENoZXZyb25SaWdodCB9IGZyb20gJ2x1Y2lkZS1yZWFjdCc7CgpleHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBIb21lKCkgewogIGNvbnN0IFthY3RpdmVUYWIsIHNldEFjdGl2ZVRhYl0gPSB1c2VTdGF0ZSgnZmxpZ2h0cycpOwogIGNvbnN0IFtkZXN0aW5hdGlvbiwgc2V0RGVzdGluYXRpb25dID0gdXNlU3RhdGUoJycpOwogIGNvbnN0IHJvdXRlciA9IHVzZVJvdXRlcigpOwoKICBjb25zdCBUQUJTID0gWwogICAgeyBpZDogJ2ZsaWdodHMnLCBsYWJlbDogJ0ZsaWdodHMnLCBpY29uOiBQbGFuZSB9LAogICAgeyBpZDogJ2hvdGVscycsICBsYWJlbDogJ0hvdGVscycsICBpY29uOiBIb3RlbCB9LAogICAgeyBpZDogJ3RyYWlucycsICBsYWJlbDogJ1RyYWlucycsICBpY29uOiBUcmFpbiZcm9udCB9LAogICAgeyBpZDogJ2NhYnMnLCAgICBsYWJlbDogJ0NhYnMnLCAgICBpY29uOiBDYXIgfSwKICBdOwoKICBjb25zdCBoYW5kbGVTZWFyY2ggPSAoKSA9PiB7CiAgICBpZiAoIWRlc3RpbmF0aW9uKSByZXR1cm47CiAgICByb3V0ZXIucHVzaChgLyR7YWN0aXZlVGFifT9kZXN0aW5hdGlvbj0ke2VuY29kZVVSSUNvbXBvbmVudChkZXN0aW5hdGlvbil9YCk7CiAgfTsKCiAgcmV0dXJuICgKICAgIDxkaXYgY2xhc3NOYW1lPSJtaW4taC1zY3JlZW4gYmctc2xhdGUtNTAiPgogICAgICA8SGVhZGVyIC8+CiAgICAgIAogICAgICB7LyogSGVybyBTZWN0aW9uICovfQogICAgICA8c2VjdGlvbiBjbGFzc05hbWU9InJlbGF0aXZlIGJnLVsjMTkyMDI0XSBwdC0xNiBwYi0zMiBvdmVyZmxvdy1oaWRkZW4iPgogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJhYnNvbHV0ZSBpbnNldC0wIG9wYWNpdHktMTAiPgogICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImFic29sdXRlIHRvcC0yMCBsZWZ0LTEwIHctNjQgaC02NCBiZy1bI0ZGNjkwRl0gcm91bmRlZC1mdWxsIGJsdXItWzEwMHB4XSIgLz4KICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJhYnNvbHV0ZSBib3R0b20tMTAgcmlnaHQtMTAgdy05NiBoLTk2IGJnLWJsdWUtNTAgcm91bmRlZC1mdWxsIGJsdXItWzEyMHB4XSIgLz4KICAgICAgICA8L2Rpdj4KCiAgICAgICAgPGRpdiBjbGFzc05hbWU9Im1heC13LTd4bCBteC1hdXRvIHB4LTQgc206cHgtNiByZWxhdGl2ZSB6LTEwIHRleHQtY2VudGVyIj4KICAgICAgICAgIDxoMSBjbGFzc05hbWU9InRleHQtNHhsIHNtOnRleHQtNnhsIGZvbnQtYmxhY2sgdGV4dC13aGl0ZSB0cmFja2luZy10aWdodGVyIG1iLTYiPgogICAgICAgICAgICBXaGVyZSB0byA8c3BhbiBjbGFzc05hbWU9InRleHQtW0ZGNjkwRl0iPm5leHQ8L3NwYW4+PwogICAgICAgICAgPC9oMT4KICAgICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC1sZyB0ZXh0LXNsYXRlLTQwMCBtYXgtdy0yeGwgbXgtYXV0byBtYi0xMiI+CiAgICAgICAgICAgIFRoZSB1bHRpbWF0ZSBlY29zeXN0ZW0gZm9yIGdyb3VwIHRyYXZlbCwgc2VhbWxlc3MgYm9va2luZywgYW5kIGV4cGVkaXRpb24gbG9naXN0aWNzLgogICAgICAgICAgPC9wPgoKICAgICAgICAgIHsvKiBCb29raW5nIEJhciAqL30KICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtYXgtdy01eGwgbXgtYXV0byBiZy13aGl0ZSByb3VuZGVkLTJ4bCBzaGFkb3ctMnhsIHAtMiBzbTpwLTQgYm9yZGVyIGJvcmRlci1zbGF0ZS0yMDAiPgogICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBmbGV4LXdyYXAgYm9yZGVyLWIgYm9yZGVyLXNsYXRlLTEwMCBtYi00Ij4KICAgICAgICAgICAgICB7VEFCUy5tYXAodGFiID0+IHsKICAgICAgICAgICAgICAgIGNvbnN0IEljb24gPSB0YWIuaWNvbjsKICAgICAgICAgICAgICAgIHJldHVybiAoCiAgICAgICAgICAgICAgICAgIDxidXR0b24gCiAgICAgICAgICAgICAgICAgICAga2V5PXt0YWIuaWR9CiAgICAgICAgICAgICAgICAgICAgb25DbGljaz17KCkgPT4gc2V0QWN0aXZlVGFiKHRhYi5pZCl9CiAgICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPXtgZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTIgcHgtNiBweS00IHRleHQtc20gZm9udC1ib2xkIHRyYW5zaXRpb24tYWxsICR7CiAgICAgICAgICAgICAgICAgICAgICBhY3RpdmVUYWIgPT09IHRhYi5pZCAKICAgICAgICAgICAgICAgICAgICAgICAgPyAndGV4dC1bI0ZGNjkwRl0gYm9yZGVyLWItMiBib3JkZXItW0ZGNjkwRl0nIAogICAgICAgICAgICAgICAgICAgICAgICA6ICd0ZXh0LXNsYXRlLTUwMCBob3Zlcjp0ZXh0LVsjMTkyMDI0XScKICAgICAgICAgICAgICAgICAgICB9YH0KICAgICAgICAgICAgICAgICAgPgogICAgICAgICAgICAgICAgICAgIDxJY29uIHNpemU9ezE4fSAvPgogICAgICAgICAgICAgICAgICAgIHt0YWIubGFiZWx9CiAgICAgICAgICAgICAgICAgIDwvYnV0dG9uPgogICAgICAgICAgICAgICAgKTsKICAgICAgICAgICAgICB9KX0KICAgICAgICAgICAgPC9kaXY+CgogICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZ3JpZCBndmlkLWNvbHMtMSBtZDpndmlkLWNvbHMtNCBnYXAtMyBwLTIiPgogICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJyZWxhdGl2ZSI+CiAgICAgICAgICAgICAgICA8TWFwUGluIGNsYXNzTmFtZT0iYWJzb2x1dGUgbGVmdC00IHRvcC00IHRleHgtc2xhdGUtNDAwIiBzaXplPXsxOH0gLz4KICAgICAgICAgICAgICAgIDxpbnB1dCAKICAgICAgICAgICAgICAgICAgdmFsdWV7ZGVzdGluYXRpb259CiAgICAgICAgICAgICAgICAgIG9uQ2hhbmdle2U9PnNldERlc3RpbmF0aW9uKGUudGFyZ2V0LnZhbHVlKX0KICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPSJ3LWZ1bGwgcGwtMTIgcHItNCBweS00IGJnLXNsYXRlLTUwIGJvcmRlciBib3JkZXItc2xhdGUtMTAwIHJvdW5kZWQteGwgdGV4dC1zbSBmb250LWJvbGQgZm9jdXM6b3V0bGluZS1ub25lIGZvY3VzOnJpbmctMiBmb2N1czpyaW5nLW9yYW5nZS0xMDAgZm9jdXM6Ym9yZGVyLVsjRkY2OTBGXSB0cmFuc2l0aW9uLWFsbCIgcGxhY2Vob2xkZXI9IkVudGVyIERlc3RpbmF0aW9uIiAvPgogICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJyZWxhdGl2ZSI+CiAgICAgICAgICAgICAgICA8Q2FsZW5kYXIgY2xhc3NOYW1lPSJhYnNvbHV0ZSBsZWZ0LTQgdG9wLTQgdGV4dC1zbGF0ZS00MDAiIHNpemU9ezE4fSAvPgogICAgICAgICAgICAgICAgPGlucHV0IGNsYXNzTmFtZT0idy1mdWxsIHBsLTEyIHByLTQgcHktNCBiZy1zbGF0ZS01MCBib3JkZXIgYm9yZGVyLXNsYXRlLTEwMCByb3VuZGVkLXhsIHRleHgtc20gZm9udC1ib2xkIGZvY3VzOm91dGxpbmUtbm9uZSBmb2N1czpyaW5nLTIgZm9jdXM6cmluZy1vcmFuZ2UtMTAwIGZvY3VzOmJvcmRlci1bI0ZGNjkwRl0gdHJhbnNpdGlvbi1hbGwiIHR5cGU9ImRhdGUiIC8+CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9InJlbGF0aXZlIj4KICAgICAgICAgICAgICAgIDxVc2VycyBjbGFzc05hbWU9ImFic29sdXRlIGxlZnQtNCB0b3AtNCB0ZXh0LXNsYXRlLTQwMCIgc2l6ZT17MTh9IC8+CiAgICAgICAgICAgICAgICA8c2VsZWN0IGNsYXNzTmFtZT0idy1mdWxsIHBsLTEyIHByLTQgcHktNCBiZy1zbGF0ZS01MCBib3JkZXIgYm9yZGVyLXNsYXRlLTEwMCByb3VuZGVkLXhsIHRleHgtc20gZm9udC1ib2xkIGFwcGVhcmFuY2Utbm9uZSBmb2N1czpvdXRsaW5lLW5vbmUgZm9jdXM6cmluZy0yIGZvY3VzOnJpbmctb3JhbmNlLTEwMCB0cmFuc2l0aW9uLWFsbCI+CiAgICAgICAgICAgICAgICAgIDxvcHRpb24+MSBUcmF2ZWxsZXI8L29wdGlvbj4KICAgICAgICAgICAgICAgICAgPG9wdGlvbj4yIFRyYXZlbGxlcnM8L29wdGlvbj4KICAgICAgICAgICAgICAgICAgPG9wdGlvbj4zKyBHcm91cDwvb3B0aW9uPgogICAgICAgICAgICAgICAgPC9zZWxlY3Q+CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgPGJ1dHRvbiAKICAgICAgICAgICAgICAgIG9uQ2xpY2t7aGFuZGxlU2VhcmNofQogICAgICAgICAgICAgICAgY2xhc3NOYW1lPSJiZy1bI0ZGNjkwRl0gdGV4dC13aGl0ZSBweS00IHJvdW5kZWQteGwgZm9udC1ibGFjayB0ZXh0LWJhc2UgaG92ZXI6YmctW2U4NWEwMF0gdHJhbnNpdGlvbi1hbGwgc2hhZG93LWxnIHNoYWRvdy1vcmFuZ2UtMTAwIGZsZXggaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyIGdhcC0yIj4KICAgICAgICAgICAgICAgIDxTZWFyY2ggc2l6ZT17MjB9IC8+CiAgICAgICAgICAgICAgICBTZWFyY2gKICAgICAgICAgICAgICA8L2J1dHRvbj4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L2Rpdj4KICAgICAgPC9zZWN0aW9uPgoKICAgICAgey8qIEZlYXR1cmVkIFNlY3Rpb24gKi99CiAgICAgIDxzZWN0aW9uIGNsYXNzTmFtZT0ibWF4LXctN3hsIG14LWF1dG8gcHgtNCBzbTpweC02IC1tdC0xNiByZWxhdGl2ZSB6LTIwIj4KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZ3JpZCBndmlkLWNvbHMtMSBtZDpndmlkLWNvbHMtMyBnYXAtNiI+CiAgICAgICAgICB7WwogICAgICAgICAgICB7IHRpdGxlOiAnU2VjdXJlIEJvb2tpbmcnLCBkZXNjOiAnRW5kLXRvLWVuZCBlbmNyeXB0ZWQgcGF5bWVudHMgYW5kIGluc3RhbnQgY29uZmlybWF0aW9uLicsIGljb246IFNoaWVsZENoZWNrLCBjb2xvcjogJ3RleHQtZW1lcmFsZC01MDAnIH0sCiAgICAgICAgICAgIHsgdGl0bGU6ICdHbG9iYWwgQ292ZXJhZ2UnLCBkZXNjOiAnRmxpZ2h0cywgaG90ZWxzLCBhbmQgdHJhbnNmZXJzIGFjcm9zcyAxODAgY291bnRyaWVzLicsIGljb246IEdsb2JlLCBjb2xvcjogJ3RleHQtYmx1ZS01MDAnIH0sCiAgICAgICAgICAgIHsgdGl0bGU6ICdPbmUtU3RvcCBFY29zeXN0ZW0nLCBkZXNjOiAnQm9vayBldmVyeXRoaW5nIGZyb20gY2FicyB0byBjcnVpc2VzIGluIGEgc2luZ2xlIGludGVyZmFjZS4nLCBpY29uOiBaYXAsIGNvbG9yOiAndGV4dC1vcmFuZ2UtNTAwJyB9LAogICAgICAgICAgXS5tYXAoKGl0ZW0sIGkpID0+IHsKICAgICAgICAgICAgY29uc3QgSWNvbiA9IGl0ZW0uaWNvbjsKICAgICAgICAgICAgcmV0dXJuICgKICAgICAgICAgICAgICA8ZGl2IGtleX1pXSBjbGFzc05hbWU9ImJnLXdoaXRlIHAtOCByb3VuZGVkLTN4bCBib3JkZXIgYm9yZGVyLXNsYXRlLTEwMCBzaGFkb3cteGwgc2hhZG93LXNsYXRlLTIwMC81MCBncm91cCbob3ZlcjotdHJhbnNsYXRlLXktMiB0cmFuc2l0aW9uLWFsbCBkdXJhdGlvbi0zMDAiPgogICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9e2B3LTE0IGgtMTQgcm91bmRlZC1yeGwgYmctc2xhdGUtNTAgZmxleCBpdGVtcy1jZW50ZXIganVzdGlmeS1jZW50ZXIgbWItNiAke2l0ZW0uY29sb3J9YH0+CiAgICAgICAgICAgICAgICAgIDxJY29uIHNpemU9ezI4fSAvPgogICAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgICA8aDMgY2xhc3NOYW1lPSJ0ZXh0LXxlIGZvbnQtYm9sZCB0ZXh0LVsjMTkyMDI0XSBtYi0yIj57aXRlbS50aXRsZX08L2gzPgogICAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LXNtIHRleHgtc2xhdGUtNTAwIGxlYWRpbmctcmVsYXhlZCI+e2l0ZW0uZGVzY308L3A+CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICk7CiAgICAgICAgICB9KX0KICAgICAgICA8L2Rpdj4KICAgICAgPC9zZWN0aW9uPgoKICAgICAgPE5hdmaYmF0b3IgLz4KICAgIDwvZGl2PgogICk7Cn0=
+'use client';
+
+import { useState, Suspense } from 'react';
+import { useRouter } from 'next/navigation';
+import Header from '@/components/layout/Header';
+import Navigator from '@/components/ai/Navigator';
+import { Plane, Hotel, Car, TramFront as Train, Search, Star, ShieldCheck, Globe, Zap, ArrowRight, MapPin, Users, Calendar, Sparkles } from 'lucide-react';
+
+function HomeContent() {
+  const [activeTab, setActiveTab] = useState('flights');
+  const [destination, setDestination] = useState('');
+  const router = useRouter();
+
+  const handleSearch = () => {
+    if (!destination) return;
+    router.push(`/${activeTab}?destination=${encodeURIComponent(destination)}`);
+  };
+
+  const TABS = [
+    { id: 'flights', label: 'Flights', icon: Plane },
+    { id: 'hotels',  label: 'Hotels',  icon: Hotel },
+    { id: 'trains',  label: 'Trains',  icon: Train },
+    { id: 'cabs',    label: 'Cabs',    icon: Car },
+  ];
+
+  const DESTINATIONS = [
+    { name: 'Swiss Alps', price: '45,200', rating: 4.9, img: 'https://images.unsplash.com/photo-1531210483974-4f8c1f33fd35?auto=format&fit=crop&q=80&w=400' },
+    { name: 'Tokyo District', price: '12,800', rating: 4.8, img: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&q=80&w=400' },
+    { name: 'Bali Shores', price: '3,400', rating: 4.7, img: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&q=80&w=400' },
+    { name: 'Mumbai Harbor', price: '9,100', rating: 4.9, img: 'https://images.unsplash.com/photo-1567157577867-05ccb1388e66?auto=format&fit=crop&q=80&w=400' },
+  ];
+
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <Header />
+      
+      <section className="relative bg-[#192024] pt-24 pb-48 overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#FF690F] blur-[150px] rounded-full" />
+          <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-600 blur-[150px] rounded-full" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
+          <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 px-4 py-2 rounded-full mb-8">
+            <Sparkles size={16} className="text-[#FF690F]" />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#FF690F]">Institutional Ecosystem v4.0</span>
+          </div>
+          <h1 className="text-6xl md:text-8xl font-black text-white mb-8 tracking-tighter leading-none">Where to <span className="text-[#FF690F]">next</span>?</h1>
+          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-16 font-bold leading-relaxed">Book flights, hotels, trains, and cabs. Settle group debts instantly with Min-Cash-Flow logic.</p>
+          
+          <div className="max-w-5xl mx-auto bg-white rounded-[40px] p-3 md:p-6 shadow-2xl text-slate-900 border border-slate-200">
+            <div className="flex flex-wrap gap-4 border-b border-slate-100 mb-6 px-4">
+              {TABS.map(tab => (
+                <button 
+                  key={tab.id} 
+                  onClick={() => setActiveTab(tab.id)} 
+                  className={`pb-4 px-2 flex items-center gap-2 font-black text-xs uppercase tracking-widest transition-all ${activeTab === tab.id ? 'text-[#FF690F] border-b-4 border-[#FF690F]' : 'text-slate-300 hover:text-slate-600'}`}
+                >
+                  <tab.icon size={16} /> {tab.label}
+                </button>
+              ))}
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+              <div className="md:col-span-5 relative">
+                <MapPin className="absolute left-5 top-5 text-slate-300" size={20} />
+                <input 
+                  value={destination} 
+                  onChange={e => setDestination(e.target.value)} 
+                  placeholder="Enter Destination (Goa, Tokyo...)" 
+                  className="w-full p-5 pl-14 bg-slate-50 rounded-3xl border-none outline-none font-black text-lg placeholder:text-slate-300 focus:ring-2 focus:ring-orange-100" 
+                />
+              </div>
+              <div className="md:col-span-3 relative">
+                 <Calendar className="absolute left-5 top-5 text-slate-300" size={18} />
+                 <input type="date" className="w-full p-5 pl-14 bg-slate-50 rounded-3xl border-none outline-none font-bold text-sm" />
+              </div>
+              <div className="md:col-span-2 relative">
+                 <Users className="absolute left-5 top-5 text-slate-300" size={18} />
+                 <select className="w-full p-5 pl-14 bg-slate-50 rounded-3xl border-none outline-none font-bold text-sm appearance-none"><option>1 Traveller</option><option>2 Travellers</option></select>
+              </div>
+              <div className="md:col-span-2">
+                <button 
+                  onClick={handleSearch} 
+                  className="w-full h-16 bg-[#FF690F] text-white rounded-3xl font-black text-xl hover:bg-orange-600 transition-all flex items-center justify-center gap-2 shadow-lg shadow-orange-200"
+                >
+                  <Search size={24} strokeWidth={3} />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-4 -mt-20 relative z-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            { title: 'Secure Ledger', icon: ShieldCheck, color: 'bg-emerald-50 text-emerald-500', desc: 'Real-time group debt settlement.' },
+            { title: 'Global Logistics', icon: Globe, color: 'bg-blue-50 text-blue-500', desc: 'Flights, Trains, and Cabs.' },
+            { title: 'Safe API', icon: Zap, color: 'bg-orange-50 text-orange-500', desc: 'Direct portal redirection layer.' },
+          ].map((item, i) => (
+            <div key={i} className="bg-white p-10 rounded-[45px] shadow-xl border border-slate-100 hover:scale-105 transition-all">
+              <div className={`w-16 h-16 ${item.color} rounded-3xl flex items-center justify-center mb-6`}>
+                <item.icon size={32} />
+              </div>
+              <h3 className="text-2xl font-black text-[#192024]">{item.title}</h3>
+              <p className="text-slate-400 font-bold mt-2">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-4 py-32">
+        <div className="flex justify-between items-end mb-12">
+          <div>
+             <h2 className="text-4xl font-black text-[#192024] tracking-tighter">Trending Expeditions</h2>
+             <p className="text-slate-400 font-bold mt-2">Curated by travel experts.</p>
+          </div>
+          <button className="text-[#FF690F] font-black flex items-center gap-2 hover:underline">VIEW ALL <ArrowRight size={20} /></button>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {DESTINATIONS.map((dest, i) => (
+            <div key={i} className="group cursor-pointer">
+              <div className="relative h-80 rounded-[40px] overflow-hidden mb-6 shadow-2xl border-4 border-white">
+                <img src={dest.img} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
+                <div className="absolute top-6 right-6 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-2xl text-xs font-black flex items-center gap-1 shadow-lg">
+                  <Star size={14} className="text-yellow-500 fill-yellow-500" /> {dest.rating}
+                </div>
+              </div>
+              <h4 className="text-xl font-black text-[#192024] mb-1">{dest.name}</h4>
+              <p className="text-[#FF690F] font-black text-sm tracking-widest uppercase">Start From ₹{dest.price}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <Navigator />
+    </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div className="h-screen bg-[#192024] flex items-center justify-center font-black text-3xl text-[#FF690F] tracking-[0.5em] animate-pulse">TRAVELO. INITIALIZING CORE...</div>}>
+      <HomeContent />
+    </Suspense>
+  );
+}
