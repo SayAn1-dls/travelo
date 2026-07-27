@@ -1,15 +1,27 @@
-# ✈️ TRAVELO: THE INSTITUTIONAL EXPEDITION HUB
+<div align="center">
 
-> **Orchestrate. Don't Just Plan.**
+# ✈️ TRAVELO: THE INSTITUTIONAL EXPEDITION CORE
 
-[![Vercel Deployment](https://images.shields.io/badge/Vercel-Live-black?style=for-the-badge&logo=vercel)](https://travelo-institutional-scaffold.vercel.app/)
-[![Build Status](https://images.shields.io/badge/Build-Operational-emerald?style=for-the-badge)](https://travelo-institutional-scaffold.vercel.app/)
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdnA2eXBoM3N2eHBoM3N2eHBoM3N2eHBoM3N2eHBoM3N2eHBoJnB2PTEmY3Q9Zw/l41lTfJvP2sL2uS7m/giphy.gif" width="100%" />
+
+> **ORCHESTRATE. DOMINATE. EXPLORE.**
+
+[![Vercel Live](https://img.shields.io/badge/Vercel-Operational-FF690F?style=for-the-badge&logo=vercel)](https://travelo-institutional-scaffold.vercel.app/)
+[![Next.js 15](https://img.shields.io/badge/Engine-Next.js_15-000?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![React 19](https://img.shields.io/badge/Core-React_19-blue?style=for-the-badge&logo=react)](https://react.dev/)
+[![Framer Motion](https://img.shields.io/badge/Motion-Liquid_UI-f01f7a?style=for-the-badge&logo=framer)](https://framer.com/motion/)
+
+</div>
 
 ---
 
 ## 🗺️ MISSION PROFILE
 
-Travelo is a **high-fidelity expedition ecosystem** engineered for elite group logistics, forensic spending audits, and global multi-modal search. This isn't a "trip planner"—it's a command center for those who demand institutional precision while navigation the globe.
+Travelo is a **high-octane expedition ecosystem** engineered for elite group logistics, forensic spending audits, and global multi-modal search. This isn't a "trip planner"—it's a **Command Center** for those who demand institutional precision while navigating the globe.
+
+<div align="center">
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3N2eHBoM3N2eHBoM3N2eHBoM3N2eHBoM3N2eHBoM3N2eHBoJnB2PTEmY3Q9Zw/3o7TKDkDbIDJieKbVm/giphy.gif" width="200px" />
+</div>
 
 ---
 
@@ -35,12 +47,14 @@ Dynamic, high-energy collaborative itinerary builder.
 
 ### 👤 04. IDENTITY CORE
 Institutional-tier authentication interface.
-- **Admin Session**: Elite access for expedition leaders (Sayan/ADMIN).
+- **Admin Session**: Elite access for expedition leaders (**Sayan/ADMIN**).
 - **Session Persistence**: Encrypted state management for multi-device synchronization.
 
 ---
 
 ## 🏗️ TECHNICAL STACK
+
+<div align="center">
 
 | LAYER | SPECIFICATION |
 | :--- | :--- |
@@ -49,12 +63,14 @@ Institutional-tier authentication interface.
 | **Logic** | O(V+E) Graph Settlement Algorithm |
 | **Styling** | Tailwind CSS v4 (Custom Institutional Theme) |
 
+</div>
+
 ---
 
 ## 🚀 GROUND CONTROL INITIALIZATION
 
 ```bash
-# Clone the repository
+# Clone the core repository
 git clone https://github.com/SayAn1-dls/travelo.git
 
 # Install operational dependencies
@@ -67,7 +83,11 @@ npm run dev
 ---
 
 ## 📡 STATUS: OPERATIONAL
-Live Link: [travelo-institutional-scaffold.vercel.app](https://travelo-institutional-scaffold.vercel.app/)
+**LIVE LINK:** [travelo-institutional-scaffold.vercel.app](https://travelo-institutional-scaffold.vercel.app/)
+
+<div align="center">
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHh6eHBoM3N2eHBoM3N2eHBoM3N2eHBoM3N2eHBoM3N2eHBoJnB2PTEmY3Q9Zw/l0HlSno07T3P0Hk6A/giphy.gif" width="400px" />
+<br />
 
 **Built by Sayan | Powered by Jarvis.**
 
