@@ -1,1 +1,116 @@
-J3VzZSBjbGllbnQnOwoKaW1wb3J0IHsgdXNlU3RhdGUsIHVzZUVmZmVjdCB9IGZyb20gJ3JlYWN0JzsKaW1wb3J0IHsgZ2V0TWluQ2FzaEZsb3csIFNldHRsZW1lbnQgfSBmcm9tICdAL2xpYi9zZXR0bGVtZW50JzsKaW1wb3J0IEhlYWRlciBmcm9tICdAL2NvbXBvbmVudHMvbGF5b3V0L0hlYWRlcic7CmltcG9ydCB7IFdhbGxldCwgQXJyb3dSaWdodCwgUGx1cywgVHJhc2gyIH0gZnJvbSAnbHVjaWRlLXJlYWN0JzsKCmludGVyZmFjZSBFeHBlbnNlIHsKICBwYXllcjogc3RyaW5nOwogIGFtb3VudDogbnVtYmVyOwogIGZvckVsZXM6IHN0cmluZ1tdOwp9CgpleHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBMZWRnZXJQYWdlKCkgewogIGNvbnN0IFtleHBlbnNlcywgc2V0RXhwZW5zZXNdID0gdXNlU3RhdGU8RXhwZW5zZVtdPihbCiAgICB7IHBheWVyOiAnU2F5YW4nLCBhbW91bnQ6IDUwMDAsIGZvckVsZXM6IFsnSGFyc2gnLCAnQW1hbmVnXSB9LAogICAgeyBwYXllcjogJ0hhcnNoJywgYW1vdW50OiAyMDAwLCBmb3JFbGVzOiBbJ1NheWFuJywgJ0FtYW5lJ10gfSwKICBdKTsKCiAgY29uc3QgW3NldHRsZW1lbnRzLCBzZXRTZXR0bGVtZW50c10gPSB1c2VTdGF0ZTxTZXR0bGVtZW50W10+KFtdKTsKCiAgdXNlRWZmZWN0KCgpID0+IHsKICAgIC8vIENhbGN1bGF0ZSBOZXQgQmFsYW5jZXMKICAgIGNvbnN0IGJhbGFuY2VzOiBSZWNvcmQ8c3RyaW5nLCBudW1iZXI+ID0ge307CiAgICAKICAgIGV4cGVuc2VzLmZvckVhY2goZSA9PiB7CiAgICAgIGJhbGFuY2VzW2UucGF5ZXJdID0gKGJhbGFuY2VzW2UucGF5ZXJdIHx8IDApICsgZS5hbW91bnQ7CiAgICAgIGNvbnN0IHNoYXJlID0gZS5hbW91bnQgLyBlLmZvckVsZXMubGVuZ3RoOwogICAgICBlLmZvckVsZXMuZm9yRWFjaChwID0+IHsKICAgICAgICBiYWxhbmNlc1twXSA9IChiYWxhbmNlc1twXSB8fCAwKSAtIHNoYXJlOwogICAgICB9KTsKICAgIH0pOwoKICAgIHNldFNldHRsZW1lbnRzKGdldE1pbkNhc2hGbG93KGJhbGFuY2VzKSk7CiAgfSwgW2V4cGVuc2VzXSk7CgogIHJldHVybiAoCiAgICA8ZGl2IGNsYXNzTmFtZT0ibWluLWgtc2NyZWVuIGJnLXNsYXRlLTUwIj4KICAgICAgPEhlYWRlciAvPgogICAgICAKICAgICAgPGRpdiBjbGFzc05hbWU9ImJnLVsjMTkyMDI0XSBweC00IHB5LTEyIj4KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibWF4LXctNHhsIG14LWF1dG8iPgogICAgICAgICAgPGgxIGNsYXNzTmFtZT0idGV4dC0yeGwgZm9udC1ibGFjayB0ZXh0LXdoaXRlIj5Hcm91cCBMZWRnZXI8L2gxPgogICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LXNsYXRlLTQwMCB0ZXh0LXNtIG10LTIiPkF1dG9tYXRpYyBkZWJ0IHJlc29sdXRpb24gdXNpbmcgTWluLUNhc2gtRmxvdyBhbGdvcml0aG08L3A+CiAgICAgICAgPC9kaXY+CiAgICAgIDwvZGl2PgoKICAgICAgPGRpdiBjbGFzc05hbWU9Im1heC13LTR4bCBteC1hdXRvIHB4LTQgcHktMTIgc3BhY2UteS04Ij4KICAgICAgICB7ZXhwZW5zZXMubWFwKChlLCBpKSA9PiAoCiAgICAgICAgICA8ZGl2IGtleXtpXSBjbGFzc05hbWU9ImJnLXdoaXRlIHAtNSByb3VuZGVkLTJ4bCBib3JkZXIgYm9yZGVyLXNsYXRlLTIwMCBmbGV4IGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWJldHdlZW4iPgogICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTQiPgogICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJ3LTEwIGgtMTAgYmctZW1lcmFsZC01MCByb3VuZGVkLWxnIGZsZXggaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyIHRleHQtZW1lcmFsZC02MDAiPgogICAgICAgICAgICAgICAgPFdhbGxldCBzaXplPXsyMH0gLz4KICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgICA8ZGl2PgogICAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LXNtIGZvbnQtYm9sZCI+e2UucGF5ZXJ9IHBhaWQgXHUyMGI5e2UuYW1vdW50fTwvcD4KICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dFtyc10gdGV4dC1zbGF0ZS01MDAiPkZvciA6e2UuZm9yRWxlcy5qb2luKCcsICcpfTwvcD4KICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICApKX0KCiAgICAgICAge3NldHRsZW1lbnRzLmxlbmd0aCA+IDAgJiYgKAogICAgICAgICAgPHNlY3Rpb24gY2xhc3NOYW1lPSJiZy1vcmFuZ2UvNSBib3JkZXIgYm9yZGVyLW9yYW5nZS8yMCBwLTggcm91bmRlZC0zeGwiPgogICAgICAgICAgICA8aDIgY2xhc3NOYW1lPSJ0ZXh0LWxnIGZvbnQtYmxhY2sgdGV4dC1bIzE5MjAyNF0gbWItNiI+T3B0aW1hbCBTZXR0bGVtZW50IFBsYW48L2gyPgogICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ic3BhY2UteS00Ij4KICAgICAgICAgICAgICB7c2V0dGxlbWVudHMubWFwKChzLCBpKSA9PiAoCiAgICAgICAgICAgICAgICA8ZGl2IGtleXtpXSBjbGFzc05hbWU9ImJnLXdoaXRlIHAtNSByb3VuZGVkLTJ4bCBib3JkZXIgYm9yZGVyLXNsYXRlLTE1MCBmbGV4IGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWJldHdlZW4iPgogICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTQiPgogICAgICAgICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0iZm9udC1ib2xkIHRleHQtc20iPntzLmZyb219PC9zcGFuPgogICAgICAgICAgICAgICAgICAgIDxBcnJvd1JpZ2h0IHNpemV7MTZ9IGNsYXNzTmFtZT0idGV4dC1zbGF0ZS00MDAiIC8+CiAgICAgICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSJmb250LWJvbGQgdGV4dC1zbSI+e3MudG99PC9zcGFuPgogICAgICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LXNtIGZvbnQtYmxhY2sgdGV4dC1bI0ZGNjkwRl0iPlBheSBcdTIwYjkge01hdGguY2VpbChzLmFtb3VudCl9PC9wPgogICAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgKSl9CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICA8YnV0dG9uIGNsYXNzTmFtZT0ibXQtOCB3LWZ1bGwgYmctWzE5MjAyNF0gdGV4dC13aGl0ZSBweS00IHJvdW5kZWQtMnhsIGZvbnQtYm9sZCBob3ZlcjpiZy1ibGFjayB0cmFuc2l0aW9uLWFsbCI+CiAgICAgICAgICAgICAgU2V0dGxlIEFsbCBEZWJ0cyBWaWEgVVBJCiAgICAgICAgICAgIDwvYnV0dG9uPgogICAgICAgICAgPC9zZWN0aW9uPgogICAgICAgICl9CiAgICAgIDwvZGl2PgogICAgPC9kaXY+CiAgKTsKfQo=
+"use client";
+import { useState } from "react";
+import { InstitutionalHeader } from "@/components/ui/InstitutionalHeader";
+import { GlassCard } from "@/components/ui/GlassCard";
+import { TacticalButton } from "@/components/ui/TacticalButton";
+import { LedgerRow } from "@/components/ui/LedgerRow";
+import { DebtChart } from "@/components/ui/DebtChart";
+import { GlassModal } from "@/components/ui/GlassModal";
+import { PremiumInput } from "@/components/ui/PremiumInput";
+import { Plus, TrendingDown, RefreshCw } from "lucide-react";
+import { formatCurrency } from "@/utils/format";
+import type { Expense } from "@/types";
+
+const MOCK_EXPENSES: Expense[] = [
+  { id: "1", description: "North Goa Hotel (2 nights)", category: "accommodation", amount: 12400, paidBy: "Sayan", splitAmong: ["Sayan", "Harsh", "Raj", "Priya"], date: "2025-07-10" },
+  { id: "2", description: "Dinner at Fisherman's Wharf", category: "food", amount: 3200, paidBy: "Harsh", splitAmong: ["Sayan", "Harsh", "Raj", "Priya"], date: "2025-07-10" },
+  { id: "3", description: "Cab from Airport", category: "transport", amount: 1800, paidBy: "Raj", splitAmong: ["Sayan", "Harsh", "Raj"], date: "2025-07-10" },
+  { id: "4", description: "Water Sports Package", category: "entertainment", amount: 6400, paidBy: "Sayan", splitAmong: ["Sayan", "Harsh", "Raj", "Priya"], date: "2025-07-11" },
+  { id: "5", description: "Lunch at Curlies Beach Shack", category: "food", amount: 2800, paidBy: "Priya", splitAmong: ["Sayan", "Harsh", "Raj", "Priya"], date: "2025-07-11" },
+];
+
+const MOCK_SETTLEMENTS = [
+  { from: "Harsh", to: "Sayan", amount: 3825 },
+  { from: "Raj", to: "Sayan", amount: 4425 },
+  { from: "Priya", to: "Sayan", amount: 2150 },
+];
+
+export default function LedgerPage() {
+  const [expenses] = useState<Expense[]>(MOCK_EXPENSES);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [description, setDescription] = useState("");
+  const [amount, setAmount] = useState("");
+
+  const totalSpent = expenses.reduce((s, e) => s + e.amount, 0);
+  const totalPending = MOCK_SETTLEMENTS.reduce((s, d) => s + d.amount, 0);
+
+  return (
+    <>
+      <InstitutionalHeader />
+      <main className="min-h-screen pt-24 pb-12 px-4 max-w-5xl mx-auto">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="font-display text-3xl font-bold text-white">Capital Ledger</h1>
+            <p className="text-[rgba(255,255,255,0.5)] mt-1">Group expense tracking & debt resolution</p>
+          </div>
+          <TacticalButton variant="primary" leftIcon={<Plus className="w-4 h-4" />} onClick={() => setModalOpen(true)}>
+            Add Expense
+          </TacticalButton>
+        </div>
+
+        {/* Summary Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+          <GlassCard glow="gold" padding="md">
+            <p className="text-[rgba(255,255,255,0.5)] text-xs uppercase tracking-wider mb-2">Total Spent</p>
+            <p className="font-display text-2xl font-bold text-gradient-gold">{formatCurrency(totalSpent)}</p>
+          </GlassCard>
+          <GlassCard glow="crimson" padding="md">
+            <p className="text-[rgba(255,255,255,0.5)] text-xs uppercase tracking-wider mb-2">Pending Settlements</p>
+            <p className="font-display text-2xl font-bold text-[#ff4757]">{formatCurrency(totalPending)}</p>
+          </GlassCard>
+          <GlassCard glow="emerald" padding="md" className="col-span-2 md:col-span-1">
+            <p className="text-[rgba(255,255,255,0.5)] text-xs uppercase tracking-wider mb-2">Transactions to Settle</p>
+            <p className="font-display text-2xl font-bold text-[#10d9a0]">{MOCK_SETTLEMENTS.length}</p>
+          </GlassCard>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Expense List */}
+          <div className="lg:col-span-2 space-y-3">
+            <h2 className="font-display font-semibold text-white text-lg mb-4">Transactions</h2>
+            {expenses.map((expense) => (
+              <LedgerRow
+                key={expense.id}
+                paidBy={expense.paidBy}
+                description={expense.description}
+                category={expense.category}
+                amount={expense.amount}
+                date={expense.date}
+                splitAmong={expense.splitAmong}
+                currentUser="Sayan"
+              />
+            ))}
+          </div>
+
+          {/* Settlement Panel */}
+          <div>
+            <h2 className="font-display font-semibold text-white text-lg mb-4">Min-Cash-Flow Settlements</h2>
+            <GlassCard padding="md" glow="sapphire">
+              <div className="flex items-center gap-2 mb-4">
+                <TrendingDown className="w-4 h-4 text-[#4a9eff]" />
+                <span className="text-sm text-[rgba(255,255,255,0.7)]">Optimized to {MOCK_SETTLEMENTS.length} transactions</span>
+              </div>
+              <DebtChart debts={MOCK_SETTLEMENTS} members={["Sayan", "Harsh", "Raj", "Priya"]} />
+              <TacticalButton variant="success" size="sm" className="w-full mt-4" leftIcon={<RefreshCw className="w-3.5 h-3.5" />}>
+                Mark All Settled
+              </TacticalButton>
+            </GlassCard>
+          </div>
+        </div>
+      </main>
+
+      {/* Add Expense Modal */}
+      <GlassModal open={modalOpen} onClose={() => setModalOpen(false)} title="Add Expense" description="Record a new group expense to the ledger." size="md">
+        <div className="space-y-4">
+          <PremiumInput label="Description" placeholder="e.g., Dinner at Fisherman's Wharf" value={description} onChange={(e) => setDescription(e.target.value)} />
+          <PremiumInput label="Amount" placeholder="0.00" type="number" leftAddon="₹" value={amount} onChange={(e) => setAmount(e.target.value)} />
+          <div className="flex gap-3 pt-2">
+            <TacticalButton variant="secondary" className="flex-1" onClick={() => setModalOpen(false)}>Cancel</TacticalButton>
+            <TacticalButton variant="primary" className="flex-1">Add to Ledger</TacticalButton>
+          </div>
+        </div>
+      </GlassModal>
+    </>
+  );
+}
