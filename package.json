@@ -1,1 +1,42 @@
-ewogICJuYW1lIjogInRyYXZlbG8taW5zdGl0dXRpb25hbC1zY2FmZm9sZCIsCiAgInZlcnNpb24iOiAiMC4xLjAiLAogICJwcml2YXRlIjogdHJ1ZSwKICAic2NyaXB0cyI6IHsKICAgICJkZXYiOiAibmV4dCBkZXYiLAogICAgImJ1aWxkIjogIkRBVEFCQVNFX1VSTD1maWxlOi4vZGV2LmRiIHByaXNtYSBnZW5lcmF0ZSAmJiBuZXh0IGJ1aWxkIiwKICAgICJzdGFydCI6ICJuZXh0IHN0YXJ0IgogIH0sCiAgImRlcGVuZGVuY2llcyI6IHsKICAgICJAcHJpc21hL2NsaWVudCI6ICJeNS4yMi4wIiwKICAgICJAdHlwZXMvbm9kZSI6ICJeMjAiLAogICAgIkB0eXBlcy9yZWFjdCI6ICJeMTkiLAogICAgIkB0eXBlcy9yZWFjdC1kb20iOiAiXjE5IiwKICAgICJsdWNpZGUtcmVhY3QiOiAibGF0ZXN0IiwKICAgICJuZXh0IjogIjE1LjEuNyIsCiAgICAicHJpc21hIjogIl41LjIyLjAiLAogICAgInJlYWN0IjogIjE5LjAuMCIsCiAgICAicmVhY3QtZG9tIjogIjE5LjAuMCIsCiAgICAidHlwZXNjcmlwdCI6ICJeNSIKICB9Cn0K
+{
+  "name": "travelo",
+  "version": "2.0.0",
+  "description": "Institutional-grade travel intelligence platform for elite group expeditions",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "db:generate": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.14.0",
+    "@radix-ui/react-dialog": "^1.1.1",
+    "@radix-ui/react-dropdown-menu": "^2.1.1",
+    "@radix-ui/react-slot": "^1.1.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.3.8",
+    "lucide-react": "^0.400.0",
+    "next": "15.0.0",
+    "openai": "^4.52.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^2.4.0",
+    "zustand": "^4.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.11",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "15.0.0",
+    "postcss": "^8.4.39",
+    "prisma": "^5.14.0",
+    "tailwindcss": "^3.4.6",
+    "typescript": "^5.5.3"
+  }
+}
