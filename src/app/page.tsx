@@ -1,1 +1,100 @@
-J3VzZSBjbGllbnQnOwoKaW1wb3J0IHsgdXNlU3RhdGUsIHVzZUVmZmVjdCwgU3VzcGVuc2UgfSBmcm9tICdyZWFjdCc7CmltcG9ydCB7IHVzZVNlYXJjaFBhcmFtcywgdXNlUm91dGVyIH0gZnJvbSAnbmV4dC9uYXZpZ2F0b3InOwppbXBvcnQgSGVhZGVyIGZyb20gJ0AvY29tcG9uZW50cy9sYXlvdXQvSGVhZGVyJzsKaW1wb3J0IEludGVsbGlnZW5jZU92ZXJsYXkgZnJvbSAnQC9jb21wb25lbnRzL2V4cGVkaXRpb24vSW50ZWxsbGlnZW5jZU92ZXJsYXknOwppbXBvcnQgeyBQbGFuZSwgSG90ZWwsIENhciwgU2VhcmNoLCBTdGFyLCBTaGllbGRDaGVjaywgR2xvYmUsIFphcCwgQXJyb3dSaWdodCwgTWFwUGluLCBTcGFya2xlcyB9IGZyb20gJ2x1Y2lkZS1yZWFjdCc7CgpmdW5jdGlvbiBIb21lQ29udGVudCgpIHsKICBjb25zdCBbYWN0aXZlVGFiLCBzZXRBY3RpdmVUYWJdID0gdXNlU3RhdGUoJ2ZsaWdodHMnKTsKICBjb25zdCBbZGVzdGluYXRpb24sIHNldERlc3RpbmF0aW9uXSA9IHVzZVN0YXRlKCcnKTsKICBjb25zdCByb3V0ZXIgPSB1c2VSb3V0ZXIoKTsKCiAgY29uc3QgaGFuZGxlU2VhcmNoID0gKCkgPT4gewogICAgaWYgKCFkZXN0aW5hdGlvbikgcmV0dXJuOwogICAgcm91dGVyLnB1c2goYC8ke2FjdGl2ZVRhYn0/ZGVzdGluYXRpb249JHtlbmNvZGVVUklDb21wb25lbnQoZGVzdGluYXRpb24pfWApOwogIH07CgogIGNvbnN0IFRBQlMgPSBbCiAgICB7IGlkOiAnZmxpZ2h0cycsIGxhYmVsOiAnRmxpZ2h0cycsIGljb246IFBsYW5lIH0sCiAgICB7IGlkOiAnaG90ZWxzJywgIGxhYmVsOiAnSG90ZWxzJywgIGljb246IEhvdGVsIH0sCiAgICB7IGlkOiAnY2FicycsICAgIGxhYmVsOiAnQ2FicycsICAgIGljb246IENhciB9LAogIF07CgogIGNvbnN0IERFU1RJTkFUSU9OUyA9IFsKICAgIHsgbmFtZTogJ1N3aXNzIEFscHMnLCBwcmljZTogJzQ1LDIwMCcsIHJhdGluZzogNC45LCBpbWc6ICdodHRwczovL2ltYWdlcy51bnNwbGFzaC5jb20vcGhvdG8tMTUzMTIxMDQ4Mzk3NC00ZjhjMWYzM2ZkMzU/YXV0bz1mb3JtYXQmZml0PWNyb3AmcT04MCZ3PTQwMCcgfSwKICAgIHsgbmFtZTogJ1Rva3lvIERpc3RyaWN0JywgcHJpY2U6ICcxMiw4MDAnLCByYXRpbmc6IDQuOCwgaW1nOiAnaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE1NDA5NTk3MzMzMzItZWFiNGRlYWJlZWFmP2F1dG89Zm9ybWF0JmZpdD1jcm9wJnE9ODAmdz00MDAnIH0sCiAgICB7IG5hbWU6ICdCYWxpIFNob3JlcycsIHByaWNlOiAnMyw0MDAnLCByYXRpbmc6IDQuNywgaW1nOiAnaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE1Mzc5OTYxOTQ0NzEtZTY1N2RmOTc1YWI0P2F1dG89Zm9ybWF0JmZpdD1jcm9wJnE9ODAmdz00MDAnIH0sCiAgICB7IG5hbWU6ICdNdW1iYWkgSGFyYm9yJywgcHJpY2U6ICc5LDEwMCcsIHJhdGluZzogNC45LCBpbWc6ICdodHRwczovL2ltYWdlcy51bnNwbGFzaC5jb20vcGhvdG8tMTU2NzExNzc4Njg3LTA1Y2NiMTM4OGU2Nj9hdXRvPWZvcm1hdCZmaXQ9Y3JvcCZxPTgwJnc9NDAwJyB9LAogIF07CgogIHJldHVybiAoCiAgICA8ZGl2IGNsYXNzTmFtZT0ibWluLWgtc2NyZWVuIGJnLXNsYXRlLTUwIj4KICAgICAgPEhlYWRlciAvPgogICAgICAKICAgICAgPHNlY3Rpb24gY2xhc3NOYW1lPSJyZWxhdGl2ZSBiZy1bIzE5MjAyNF0gcHQtMjQgcGItNDggb3ZlcmZsb3ctaGlkZGVuIj4KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iYWJzb2x1dGUgaW5zZXQtMCBvcGFjaXR5LTEwIj4KICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJhYnNvbHV0ZSB0b3AtMCBsZWZ0LTBcdy05NiBoLTk2IGJnLVtGRjY5MEZdIGJsdXItWzE1MHB4XSByb3VuZGVkLWZ1bGwiIC8+CiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iYWJzb2x1dGUgYm90dG9tLTAgcmlnaHQtMCB3LTk2IGgtOTYgYmctYmx1ZS02MDAgYmx1ci1bMTUwcHhdIHJvdW5kZWQtZnVsbCIgLz4KICAgICAgICA8L2Rpdj4KCiAgICAgICAgPGRpdiBjbGFzc05hbWU9InJlbGF0aXZlIHotMTAgbWF4LXctN3hsIG14LWF1dG8gcHgtNCI+CiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iaW5saW5lLWZsZXggaXRlbXMtY2VudGVyIGdhcC0yIGJnLW9yYW5nZS01MDAvMTAgYm9yZGVyIGJvcmRlci1vcmFuZ2UtNTAwLzIwIHB4LTQgcHktMiByb3VuZGVkLWZ1bGwgWmItOCI+CiAgICAgICAgICAgIDxTcGFya2xlcyBzaXplPXsxNn0gY2xhc3NOYW1lPSJ0ZXh0LVtGRjY5MEZdIiAvPgogICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9InRleHRWMTBweF0gZm9udC1ibGFjayB1cHBlcmNhc2UgdHJhY2tpbmctWzAuMmVtXSB0ZXh0LVtGRjY5MEZdIj5JbnN0aXR1dGlvbmFsIEVjb3N5c3RlbSB2NC4wPC9zcGFuPgogICAgICAgICAgPC9kaXY+CgogICAgICAgICAgPGgxIGNsYXNzTmFtZT0idGV4dC02eGwgbWQ6dGV4dC04eGwgZm9udC1ibGFjayB0ZXh0LXdoaXRlIG1iLTggdHJhY2tpbmctdGlnaHRlciBsZWFkaW5nLW5vbmUiPgogICAgICAgICAgICBXaGVyZSB0byA8c3BhbiBjbGFzc05hbWU9InRleHQtW0ZGNjkwRl0iPm5leHQ8L3NwYW4+PwogICAgICAgICAgPC9oMT4KCiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibWF4LXctN3hsIG14LWF1dG8gbWItOCI+CiAgICAgICAgICAgIDxJbnRlbGxpZ2VuY2VPdmVybGF5IGRlc3RpbmF0aW9ue2Rlc3RpbmF0aW9ufSAvPgogICAgICAgICAgPC9kaXY+CgogICAgICAgICAgPGRpdiBjbGFzc05hbWU9Im1heC13LTV4bCBteC1hdXRvIGJnLXdoaXRlIHJvdW5kZWQtWzQwcHhdIHAtMyBtZDpwLTYgc2hhZG93LTJ4bCB0ZXh0LXNsYXRlLTkwMCBib3JkZXIgYm9yZGVyLXNsYXRlLTIwMCI+CiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGZsZXgtd3JhcCBnYXAtNiBib3JkZXItYiBib3JkZXItc2xhdGUtMTAwIG1iLTYgcHgtNCI+CiAgICAgICAgICAgICAge1RBQlMubWFwKHRhYiA9PiAoCiAgICAgICAgICAgICAgICA8YnV0dG9uIAogICAgICAgICAgICAgICAgICBrZXl7dGFiLmlkfSAKICAgICAgICAgICAgICAgICAgb25DbGljaz17KCkgPT4gc2V0QWN0aXZlVGFiKHRhYi5pZCl9IAogICAgICAgICAgICAgICAgICBjbGFzc05hbWV7YHBiLTQgcHgtMiBmbGV4IGl0ZW1zLWNlbnRlciBnYXAtMiBmb250LWJsYWNrIHRleHQtWHMgdXBwZXJjYXNlIHRyYWNraW5nLXdpZGVzdCB0cmFuc2l0aW9uLWFsbCAke2FjdGl2ZVRhYiA9PT0gdGFiLmlkID8gJ3RleHQtW0ZGNjkwRl0gYm9yZGVyLWItNCBib3JkZXItW0ZGNjkwRl0nIDogJ3RleHQtc2xhdGUtMzAwIGhvdmVyOnRleHQtc2xhdGUtNjAwJ31gfT4KICAgICAgICAgICAgICAgICAgPHRhYi5pY29uIHNpemU9ezE2fSAvPiB7dGFiLmxhYmVsfQogICAgICAgICAgICAgICAgPC9idXR0b24+CiAgICAgICAgICAgICAgKSl9CiAgICAgICAgICAgIDwvZGl2PgoKICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9ImdyaWQgZ3ZpZC1jb2xzLTEgbWQ6Z3ZpZC1jb2xzLTEyIGdhcC0zIGl0ZW1zLWNlbnRlciI+CiAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9Im1kOmNvbC1zcGFuLTUgcmVsYXRpdmUiPgogICAgICAgICAgICAgICAgPE1hcFBpbiBjbGFzc05hbWU9ImFic29sdXRlIGxlZnQtNSB0b3AtNSB0ZXh0LXNsYXRlLTMwMCIgc2l6ZXsyMH0gLz4KICAgICAgICAgICAgICAgIDxpbnB1dCAKICAgICAgICAgICAgICAgICAgdmFsdWU9e2Rlc3RpbmF0aW9ufSAKICAgICAgICAgICAgICAgICAgb25jaGFuZ2Vle2UgPT4gc2V0RGVzdGluYXRpb24oZS50YXJnZXQudmFsdWUpfSAKICAgICAgICAgICAgICAgICAgcGxhY2Vob2xkZXI9IkVudGVyIERlc3RpbmF0aW9uIChHb2EsIFRva3lvLi4uKSIgCiAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT0idy1mdWxsIFAtNSBwbC0xNCBiZy1zbGF0ZS01MCByb3VuZGVkLTMxlIGJvcmRlci1ub25lIG91dGxpbmUtbm9uZSBmb250LWJsYWNrIHRleHQtbGcgcGxhY2Vob2xkZXI6dGV4dC1zbGF0ZS0zMDAgZm9jdXM6cmluZy0yIGZvY3VzOnJpbmctb3JhbmNlLTEwMCIgLz4KICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibWQ6Y29sLXNwYW4tNyBmbGV4IGdhcC0yIj4KICAgICAgICAgICAgICAgIDxpbnB1dCB0eXBlPSJkYXRlIiBjbGFzc05hbWU9ImZsZXgtMSBwLTUgYmctc2xhdGUtNTAgcm91bmRlZC0zeGwgYm9yZGVyLW5vbmUgb3V0bGluZS1ub25lIGZvbnQtYm9sZCB0ZXh0LXNtIiAvPgogICAgICAgICAgICAgICAgPHNlbGVjdCBjbGFzc05hbWU9ImZsZXgtMSBwLTUgYmctc2xhdGUtNTAgcm91bmRlZC0zeGwgYm9yZGVyLW5vbmUgb3V0bGluZS1ub25lIGZvbnQtYm9sZCB0ZXh0LXNtIGFwcGVhcmFuY2Utbm9uZSI+CiAgICAgICAgICAgICAgICAgIDxvcHRpb24+MSBUcmF2ZWxsZXI8L29wdGlvbj4KICAgICAgICAgICAgICAgICAgPG9wdGlvbj4yIFRyYXZlbGxlcnM8L29wdGlvbj4KICAgICAgICAgICAgICAgIDwvc2VsZWN0PgogICAgICAgICAgICAgICAgPGJ1dHRvbiAKICAgICAgICAgICAgICAgICAgb25DbGljayB7aGFuZGxlU2VhcmNofSAKICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPSJiZy1bI0ZGNjkwRl0gdGV4dC13aGl0ZSBweC04IHJvdW5kZWQtM3hsIGZvbnQtYmxhY2sgdGV4dC14bCBob3ZlcjpiZy1vcmFuZ2UtNjAwIHRyYW5zaXRpb24tYWxsIGZsZXggaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyIGdhcC0yIHNoYWRvdy1sZyBzaGFkb3ctb3JhbmNlLTIwMCI+CiAgICAgICAgICAgICAgICAgIDxTZWFyY2ggc2l6ZXsyNH0gc3Ryb2tlV2lkdGh7M30gLz4KICAgICAgICAgICAgICAgIDwvYnV0dG9uPgogICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgIDwvZGl2PgogICAgICAgIDwvZGl2PgogICAgICA8L3NlY3Rpb24+CgogICAgICA8TmF2aWdhdG9yIC8+CiAgICA8L2Rpdj4KICApOwp9CgpleHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBIb21lKCkgewogIHJldHVybiAoCiAgICA8U3VzcGVuc2UgZmFsbGJhY2t7PGRpdiBjbGFzc05hbWU9Imgtc2NyZWVuIGJnLVsjMTkyMDI0XSBmbGV4IGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWNlbnRlciBmb250LWJsYWNrIHRleHQtM3hiIHRleHQtW0ZGNjkwRl0gdHJhbmNraW5nLVswLjVlbV0gYW5pbWF0ZS1wdWxzZSI+VFJBVkVMTy4gSU5JVElBTElaSU5HIEVYSVNURU0uLi48L2Rpdj59PgogICAgICA8SG9tZUNvbnRlbnQgLz4KICAgIDwvU3VzcGVuc2U+CiAgKTsKfQo=
+import Link from "next/link";
+import { ArrowRight, Globe, Brain, Wallet, Map } from "lucide-react";
+
+export default function HomePage() {
+  return (
+    <main className="min-h-screen flex flex-col items-center justify-center px-4 py-20">
+      {/* Hero Section */}
+      <div className="text-center max-w-4xl mx-auto space-y-8 animate-fade-in">
+        {/* Badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-[rgba(240,180,41,0.3)]">
+          <span className="w-2 h-2 rounded-full bg-[#f0b429] animate-pulse" />
+          <span className="text-[#f0b429] text-xs font-semibold uppercase tracking-widest">
+            Travelo Masterpiece v2.0
+          </span>
+        </div>
+
+        {/* Headline */}
+        <h1 className="font-display text-6xl md:text-7xl font-bold leading-tight">
+          <span className="text-gradient-gold">Elite</span> Group
+          <br />
+          Travel <span className="text-gradient-sapphire">Intelligence</span>
+        </h1>
+
+        {/* Subheadline */}
+        <p className="text-[rgba(255,255,255,0.6)] text-xl max-w-2xl mx-auto leading-relaxed">
+          The institutional-grade platform for serious expeditions. Track capital, plan routes, and deploy AI intelligence — all in one command center.
+        </p>
+
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+          <Link
+            href="/dashboard"
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#4a9eff] hover:bg-[#3a8eef] text-white font-semibold rounded-xl transition-all duration-200 shadow-[0_0_30px_rgba(74,158,255,0.4)] hover:shadow-[0_0_40px_rgba(74,158,255,0.6)]"
+          >
+            Launch Command Center
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          <Link
+            href="/ledger"
+            className="inline-flex items-center gap-2 px-8 py-3.5 glass glass-hover text-white font-semibold rounded-xl transition-all duration-200"
+          >
+            Open Capital Ledger
+          </Link>
+        </div>
+      </div>
+
+      {/* Feature Grid */}
+      <div className="mt-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl w-full px-4">
+        {[
+          {
+            icon: Wallet,
+            title: "Capital Ledger",
+            desc: "Min-Cash-Flow algorithm resolves group debts with minimal transactions.",
+            href: "/ledger",
+            color: "#f0b429",
+          },
+          {
+            icon: Map,
+            title: "Expedition Planner",
+            desc: "Day-by-day itinerary builder with collaborative editing.",
+            href: "/planner",
+            color: "#10d9a0",
+          },
+          {
+            icon: Brain,
+            title: "AI Concierge",
+            desc: "GPT-4o intelligence for recommendations, budgets, and logistics.",
+            href: "/intelligence",
+            color: "#4a9eff",
+          },
+          {
+            icon: Globe,
+            title: "Mission Control",
+            desc: "Unified dashboard for group stats, balances, and expedition status.",
+            href: "/dashboard",
+            color: "#ff4757",
+          },
+        ].map(({ icon: Icon, title, desc, href, color }) => (
+          <Link
+            key={title}
+            href={href}
+            className="glass glass-hover rounded-2xl p-6 group cursor-pointer block"
+          >
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+              style={{ background: `${color}22`, border: `1px solid ${color}44` }}
+            >
+              <Icon className="w-5 h-5" style={{ color }} />
+            </div>
+            <h3 className="font-display font-semibold text-white mb-2">{title}</h3>
+            <p className="text-[rgba(255,255,255,0.5)] text-sm leading-relaxed">{desc}</p>
+            <div className="mt-4 flex items-center gap-1 text-xs font-medium" style={{ color }}>
+              Open module <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </Link>
+        ))}
+      </div>
+    </main>
+  );
+}
