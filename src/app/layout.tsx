@@ -1,27 +1,41 @@
 import type { Metadata } from "next";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "Travelo — Search. Plan. Settle.",
-  description: "Professional group travel logistics: flights, hotels, cabs, and instant group expense settlement.",
+  title: "Travelo — Elite Group Travel Intelligence",
+  description:
+    "Institutional-grade travel platform: capital ledger, expedition planning, and AI concierge for elite group expeditions.",
+  keywords: ["travel", "group expenses", "itinerary", "AI travel planner"],
+  openGraph: {
+    title: "Travelo — Elite Group Travel Intelligence",
+    description: "Plan smarter. Spend wiser. Travel elite.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body>{children}</body>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+      <body className="antialiased min-h-screen bg-[#05051c]">
+        <div className="relative z-10">{children}</div>
+      </body>
     </html>
   );
 }
